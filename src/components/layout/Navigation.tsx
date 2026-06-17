@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./MobileNav";
-import { Menu, Phone } from "lucide-react";
+import { Menu } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -18,112 +18,78 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // On non-home pages, always show the solid nav
-  const showSolid = isScrolled || !isHome;
-
   return (
     <>
       <header
-        className={`fixed w-full z-50 transition-all duration-500 ${
-          showSolid
-            ? "bg-white/95 backdrop-blur-md shadow-md py-3"
-            : "bg-transparent py-5"
+        className={`sticky top-0 z-30 flex items-center justify-between border-b border-line bg-white/95 px-5 py-4 backdrop-blur-sm backdrop-saturate-150 transition-shadow duration-300 sm:px-8 lg:px-12 ${
+          isScrolled ? "shadow-[0_8px_22px_-14px_rgba(36,40,31,0.55)]" : ""
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <Image
-              src={showSolid ? "/logo-dark.png" : "/logo.png"}
-              alt="Forest Resources Inc."
-              width={48}
-              height={48}
-              className="object-contain transition-all duration-300"
-              priority
-            />
-            <div className="flex flex-col">
-              <span
-                className={`font-serif font-bold text-lg tracking-tight transition-colors duration-300 ${
-                  showSolid
-                    ? "text-stone-900"
-                    : "text-white drop-shadow-md"
-                }`}
-              >
-                FOREST RESOURCES INC
-              </span>
-              <span
-                className={`text-[11px] font-medium tracking-widest uppercase transition-colors duration-300 ${
-                  showSolid
-                    ? "text-forest-600"
-                    : "text-gray-200 drop-shadow-sm"
-                }`}
-              >
-                Timber & Land Management
-              </span>
-            </div>
-          </Link>
+        {/* Wordmark */}
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/logo-dark.png"
+            alt="Forest Resources Inc."
+            width={31}
+            height={44}
+            priority
+            className="h-11 w-auto -translate-y-1"
+          />
+          <span className="flex flex-col">
+            <span className="whitespace-nowrap font-display text-[15px] font-bold leading-none sm:text-[17px]">
+              FOREST RESOURCES INC.
+            </span>
+            <span className="mt-1 hidden text-[11px] font-medium text-[#7d7a6c] sm:block">
+              Timber &amp; Land Management · Shumway, IL
+            </span>
+          </span>
+        </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-7 lg:flex">
+          <nav className="flex gap-6 text-sm font-semibold text-forest">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href);
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-semibold uppercase tracking-wider transition-colors relative ${
-                    showSolid
-                      ? isActive
-                        ? "text-forest-700"
-                        : "text-stone-600 hover:text-forest-700"
-                      : isActive
-                        ? "text-white"
-                        : "text-white/80 hover:text-white drop-shadow-sm"
+                  className={`pb-0.5 transition-colors hover:text-amber ${
+                    isActive ? "border-b-2 border-amber" : ""
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-forest-500 rounded-full" />
-                  )}
                 </Link>
               );
             })}
-
-            {/* CTA */}
-            <Link
-              href="/contact"
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                showSolid
-                  ? "bg-forest-700 text-white hover:bg-forest-800 shadow-sm"
-                  : "bg-white/15 text-white border border-white/30 hover:bg-white/25 backdrop-blur-sm"
-              }`}
-            >
-              <Phone size={14} />
-              Free Consultation
-            </Link>
           </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsMobileOpen(true)}
-            aria-label="Open menu"
+          <a
+            href="tel:2172591500"
+            className="rounded-[3px] bg-forest px-[18px] py-[11px] text-sm font-bold text-white transition-[transform,filter] duration-200 hover:-translate-y-px hover:brightness-110"
           >
-            <Menu
-              size={24}
-              className={showSolid ? "text-stone-800" : "text-white"}
-            />
-          </button>
+            Call 217-259-1500
+          </a>
         </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="p-1.5 text-forest lg:hidden"
+          onClick={() => setIsMobileOpen(true)}
+          aria-label="Open menu"
+        >
+          <Menu size={24} />
+        </button>
       </header>
 
       <MobileNav

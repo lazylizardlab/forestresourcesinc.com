@@ -7,6 +7,7 @@ interface ContactFormData {
   email: string;
   phone: string;
   service: string;
+  land?: string;
   message: string;
 }
 
@@ -39,6 +40,7 @@ export async function submitContactForm(
         `Email: ${data.email}`,
         `Phone: ${data.phone}`,
         `Service Interest: ${data.service}`,
+        ...(data.land ? [`County / Acres: ${data.land}`] : []),
         ``,
         `Message:`,
         data.message,

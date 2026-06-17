@@ -1,57 +1,61 @@
 "use client";
 
 import { useState } from "react";
-import { Phone, Mail, MapPin, Calendar, Send, Loader2 } from "lucide-react";
-import { SectionReveal } from "@/components/ui/SectionReveal";
 import { submitContactForm } from "@/app/actions/contact";
 
-const services = [
-  "Forest Stewardship Plans",
+const topics = [
+  "Forest Stewardship Plan",
+  "Timber Appraisal or Sale",
   "Tree Planting",
-  "Wildlife Enhancement",
-  "Food Plots & CRP Seeding",
-  "Timber Appraisals & Sales",
-  "Forest Stand Improvement",
+  "Wildlife / Food Plots",
   "CRP Management",
   "Invasive Species Control",
-  "Other",
+  "Something else",
 ];
 
+const labelClass =
+  "mb-1.5 block text-xs font-bold uppercase tracking-[0.04em] text-[#5a5a4c]";
+const inputClass =
+  "w-full rounded-[4px] border border-[#d8d2c2] bg-[#faf9f4] px-[13px] py-3 text-[15px] outline-none transition-colors focus:border-forest";
+
+const emptyForm = {
+  name: "",
+  phone: "",
+  email: "",
+  land: "",
+  topic: topics[0],
+  message: "",
+};
+
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "Forest Stewardship Plans",
-    message: "",
-  });
+  const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const update =
+    (key: keyof typeof emptyForm) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) =>
+      setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setStatus("sending");
-
     try {
-      const result = await submitContactForm(formData);
+      const result = await submitContactForm({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        service: form.topic,
+        land: form.land,
+        message: form.message,
+      });
       if (result.success) {
         setStatus("sent");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          service: "Forest Stewardship Plans",
-          message: "",
-        });
+        setForm(emptyForm);
       } else {
         setStatus("error");
       }
@@ -61,226 +65,146 @@ export function ContactForm() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-      {/* Contact Info */}
-      <SectionReveal direction="left">
-        <div className="bg-forest-50 p-10 rounded-3xl border border-forest-100">
-          <h2 className="text-2xl font-serif font-bold text-forest-900 mb-8">
-            Contact Information
-          </h2>
-          <div className="space-y-8">
-            <a
-              href="tel:2172591500"
-              className="flex items-start gap-4 group"
-            >
-              <div className="bg-white p-3 rounded-xl shadow-sm text-forest-600 group-hover:bg-forest-600 group-hover:text-white transition-colors">
-                <Phone size={24} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-stone-500 uppercase tracking-wide">
-                  Phone
-                </p>
-                <p className="text-xl font-semibold text-stone-900">
-                  217-259-1500
-                </p>
-                <p className="text-xs text-stone-500">
-                  Call for appointments
-                </p>
-              </div>
-            </a>
+    <div className="rounded-[6px] border border-card-line bg-white p-7 sm:p-9">
+      <h2 className="mb-1.5 font-display text-[26px] font-bold">
+        Request a free consultation
+      </h2>
+      <p className="mb-7 text-[14.5px] text-[#6a6a5a]">
+        Tell us a little about your land and we&apos;ll be in touch.
+      </p>
 
-            <a
-              href="mailto:perrybushue@forestresourcesinc.com"
-              className="flex items-start gap-4 group"
-            >
-              <div className="bg-white p-3 rounded-xl shadow-sm text-forest-600 group-hover:bg-forest-600 group-hover:text-white transition-colors">
-                <Mail size={24} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-stone-500 uppercase tracking-wide">
-                  Email
-                </p>
-                <p className="text-lg font-semibold text-stone-900">
-                  perrybushue@forestresourcesinc.com
-                </p>
-              </div>
-            </a>
-
-            <div className="flex items-start gap-4">
-              <div className="bg-white p-3 rounded-xl shadow-sm text-forest-600">
-                <MapPin size={24} />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-stone-500 uppercase tracking-wide">
-                  Location
-                </p>
-                <p className="text-lg font-semibold text-stone-900">
-                  Perry Bushue
-                </p>
-                <p className="text-stone-600">Shumway, IL</p>
-              </div>
-            </div>
-
-            <div className="pt-8 border-t border-forest-200">
-              <div className="flex items-center text-forest-700 font-medium gap-2">
-                <Calendar size={20} />
-                <span>
-                  Available for on-site visits throughout Central &
-                  Southern Illinois.
-                </span>
-              </div>
-            </div>
+      {status === "sent" ? (
+        <div className="rounded-[5px] border border-[#b9cda4] bg-[#eef3e8] p-7 text-center">
+          <div className="mb-2 font-display text-[22px] font-bold text-forest">
+            Thanks — we got it.
           </div>
+          <p className="mb-4 text-[15px] text-bark-soft">
+            Perry will reach out soon. Need an answer today? Call{" "}
+            <strong>217-259-1500</strong>.
+          </p>
+          <button
+            onClick={() => setStatus("idle")}
+            className="cursor-pointer rounded-[3px] border-[1.5px] border-forest px-5 py-[11px] text-sm font-bold text-forest transition-colors hover:bg-forest hover:text-white"
+          >
+            Send another
+          </button>
         </div>
-      </SectionReveal>
-
-      {/* Form */}
-      <SectionReveal direction="right">
-        {status === "sent" ? (
-          <div className="flex flex-col items-center justify-center h-full text-center py-16">
-            <div className="w-16 h-16 bg-forest-100 rounded-full flex items-center justify-center mb-6">
-              <Send size={28} className="text-forest-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-stone-900 mb-3">
-              Message Sent!
-            </h3>
-            <p className="text-stone-600 text-lg max-w-md">
-              Thank you for reaching out. We&apos;ll review your inquiry
-              and contact you shortly.
-            </p>
-            <button
-              onClick={() => setStatus("idle")}
-              className="mt-8 text-forest-700 font-semibold hover:text-forest-800 transition-colors"
-            >
-              Send another message
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-stone-700 mb-1.5"
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition-all"
-                  placeholder="Your Name"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-stone-700 mb-1.5"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition-all"
-                  placeholder="(217) ..."
-                />
-              </div>
-            </div>
-
+      ) : (
+        <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void handleSubmit();
+        }}
+      >
+          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-stone-700 mb-1.5"
-              >
-                Email Address
+              <label htmlFor="name" className={labelClass}>
+                Name
               </label>
               <input
-                type="email"
+                id="name"
+                required
+                value={form.name}
+                onChange={update("name")}
+                placeholder="Your name"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className={labelClass}>
+                Phone
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                required
+                value={form.phone}
+                onChange={update("phone")}
+                placeholder="(217) 000-0000"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="email" className={labelClass}>
+                Email
+              </label>
+              <input
                 id="email"
-                name="email"
+                type="email"
                 required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition-all"
-                placeholder="email@example.com"
+                value={form.email}
+                onChange={update("email")}
+                placeholder="you@email.com"
+                className={inputClass}
               />
             </div>
-
             <div>
-              <label
-                htmlFor="service"
-                className="block text-sm font-medium text-stone-700 mb-1.5"
-              >
-                Service of Interest
+              <label htmlFor="land" className={labelClass}>
+                County / Acres
               </label>
-              <select
-                id="service"
-                name="service"
-                value={formData.service}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition-all bg-white"
-              >
-                {services.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-stone-700 mb-1.5"
-              >
-                Message / Property Details
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-forest-500 focus:border-forest-500 outline-none transition-all"
-                placeholder="Please describe your property location (County) and acreage..."
+              <input
+                id="land"
+                value={form.land}
+                onChange={update("land")}
+                placeholder="e.g. Effingham, 40 ac"
+                className={inputClass}
               />
             </div>
+          </div>
 
-            {status === "error" && (
-              <p className="text-red-600 text-sm">
-                Something went wrong. Please try again or call us directly
-                at 217-259-1500.
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="w-full bg-forest-700 hover:bg-forest-800 disabled:opacity-60 text-white font-bold py-4 rounded-xl shadow-lg transition-colors text-lg flex items-center justify-center gap-2"
+          <div className="mb-4">
+            <label htmlFor="topic" className={labelClass}>
+              What can we help with?
+            </label>
+            <select
+              id="topic"
+              value={form.topic}
+              onChange={update("topic")}
+              className={inputClass}
             >
-              {status === "sending" ? (
-                <>
-                  <Loader2 size={20} className="animate-spin" />
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <Send size={18} />
-                  Send Inquiry
-                </>
-              )}
-            </button>
-          </form>
-        )}
-      </SectionReveal>
+              {topics.map((t) => (
+                <option key={t}>{t}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-[22px]">
+            <label htmlFor="message" className={labelClass}>
+              Message
+            </label>
+            <textarea
+              id="message"
+              required
+              rows={4}
+              value={form.message}
+              onChange={update("message")}
+              placeholder="Tell us about your land and what you're hoping to do."
+              className={`${inputClass} resize-y`}
+            />
+          </div>
+
+          {status === "error" && (
+            <p className="mb-4 text-sm font-medium text-red-700">
+              Something went wrong. Please try again or call us at
+              217-259-1500.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="w-full cursor-pointer rounded-[4px] bg-forest py-[15px] text-[15px] font-bold text-white transition-[filter] hover:brightness-110 disabled:opacity-60"
+          >
+            {status === "sending" ? "Sending…" : "Send Request"}
+          </button>
+          <p className="mt-3.5 text-center text-[12.5px] text-[#8a8a7a]">
+            Prefer to talk? Call Perry at 217-259-1500.
+          </p>
+        </form>
+      )}
     </div>
   );
 }

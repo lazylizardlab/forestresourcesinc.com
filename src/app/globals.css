@@ -1,34 +1,54 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Forest color palette */
-  --color-forest-50: #f2fcf5;
-  --color-forest-100: #e1f8e8;
-  --color-forest-200: #c3eed0;
-  --color-forest-300: #96dec9;
-  --color-forest-400: #5fbc9f;
-  --color-forest-500: #3a9f81;
-  --color-forest-600: #298066;
-  --color-forest-700: #236653;
-  --color-forest-800: #205144;
-  --color-forest-900: #1b433a;
-  --color-forest-950: #0e2521;
+  /* ── Workhorse palette ─────────────────────────────────────────────
+     Warm "almanac" paper, working forest green, amber/wheat accents. */
+  --color-paper: #f5f3ec; /* page background */
+  --color-paper-soft: #ece8dc; /* alternating section bg / tags */
+  --color-bark: #24281f; /* primary text */
+  --color-bark-soft: #4c4c40; /* secondary text */
+  --color-line: #e0dccf; /* hairline borders */
+  --color-card-line: #e2ddcf; /* card borders */
 
-  /* Wood color palette */
-  --color-wood-100: #f5f0e6;
-  --color-wood-200: #e6dac4;
+  --color-forest: #34452c; /* primary green */
+  --color-forest-line: #46583a; /* divider on green */
+  --color-forest-deep: #2b3a24; /* deeper green panels */
+  --color-ink: #23291d; /* footer / darkest */
+  --color-ink-line: #36402c;
+
+  --color-amber: #a9772f; /* accent links / eyebrows */
+  --color-gold: #c79a4e; /* CTA buttons */
+  --color-wheat: #cdb37a; /* logo mark / accents on dark */
+  --color-sage: #b8c2a6; /* muted text on green */
+  --color-sage-soft: #c2cbb2;
+
+  /* ── Legacy forest/wood scale, retuned toward the Workhorse greens so
+     the service detail pages harmonize without per-element edits. ──── */
+  --color-forest-50: #eef3e8;
+  --color-forest-100: #e3ead9;
+  --color-forest-200: #c9d6b8;
+  --color-forest-300: #cdb37a;
+  --color-forest-400: #c79a4e;
+  --color-forest-500: #5a6e44;
+  --color-forest-600: #46583a;
+  --color-forest-700: #34452c;
+  --color-forest-800: #2b3a24;
+  --color-forest-900: #23291d;
+  --color-forest-950: #1a2016;
+
+  --color-wood-100: #ece8dc;
+  --color-wood-200: #e3dcc8;
   --color-wood-800: #5c4d3c;
   --color-wood-900: #3d3226;
 
-  /* Font families */
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-merriweather);
+  /* ── Fonts ──────────────────────────────────────────────────────── */
+  --font-sans: var(--font-public-sans);
+  --font-display: var(--font-oswald);
+  --font-serif: var(--font-oswald);
 
-  /* Custom animations */
+  /* ── Entrance animations ────────────────────────────────────────── */
   --animate-fade-in: fade-in 0.5s ease-out;
   --animate-slide-up: slide-up 0.6s ease-out;
-  --animate-slide-up-slow: slide-up 0.8s ease-out;
-  --animate-counter: counter-grow 0.4s ease-out;
 }
 
 @layer base {
@@ -37,29 +57,111 @@
   }
 
   body {
-    @apply bg-stone-50 text-stone-800 antialiased;
+    background: var(--color-paper);
+    color: var(--color-bark);
+    font-family: var(--font-sans), Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a[href^="tel:"] {
+    white-space: nowrap;
   }
 
   ::selection {
-    @apply bg-forest-200 text-forest-900;
+    background: #c79a4e;
+    color: #23271d;
   }
 
-  /* Custom scrollbar */
+  /* ── Wood-grain "log" scrollbar ──────────────────────────────────────
+     WebKit/Blink (Chrome, Edge, Safari): the thumb is a rounded log —
+     a barrel gradient across the width fakes a cylinder, and vertical
+     grain streaks run down its length. Firefox falls back to solid bark
+     (see scrollbar-color on html below). */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 14px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-stone-100;
+    background: var(--color-paper-soft);
+    border-left: 1px solid var(--color-line);
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-forest-600 rounded-full;
+    border-radius: 9999px;
+    border: 1px solid rgba(74, 53, 23, 0.5);
+    /* Fresh-cut golden timber: irregular vertical bands of amber/gold/wheat
+       = grain running down the log, lightest band near center for a barrel
+       highlight. Tied to the amber/gold/wheat accent family. */
+    background-image: linear-gradient(
+      90deg,
+      #5e4422 0%,
+      #8a6230 9%,
+      #6b4f28 16%,
+      #a9772f 24%,
+      #7c5a2c 33%,
+      #c79a4e 44%,
+      #a07636 52%,
+      #ddc88f 60%,
+      #a9772f 70%,
+      #c79a4e 79%,
+      #6b4f28 88%,
+      #553e1f 100%
+    );
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-image: linear-gradient(
+      90deg,
+      #6d5029 0%,
+      #9c7038 9%,
+      #7c5c30 16%,
+      #bd863a 24%,
+      #8c6733 33%,
+      #d8aa5c 44%,
+      #b3853f 52%,
+      #e8d6a1 60%,
+      #bd863a 70%,
+      #d8aa5c 79%,
+      #7c5c30 88%,
+      #634825 100%
+    );
+  }
+
+  /* Firefox: no texture support, fall back to solid timber. */
+  html {
+    scrollbar-color: var(--color-amber) var(--color-paper-soft);
+  }
+}
+
+/* ── Scroll-reveal system ──────────────────────────────────────────────
+   Elements tagged [data-reveal] rise + fade into view. The hidden state
+   only exists for users who haven't asked to reduce motion, so reduced-
+   motion users (and the no-JS fallback below) always see content. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1),
+      transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
   }
 }
 
 /* Keyframes */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
@@ -71,19 +173,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-@keyframes counter-grow {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* Organic clip paths */
-.clip-organic {
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 73% 100%, 42% 92%, 0 100%);
-}
-
-/* Topographic background pattern */
-.bg-topo {
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 10c20 0 35 15 35 35s-15 35-35 35-35-15-35-35 15-35 35-35z' fill='none' stroke='%23236653' stroke-width='0.5' opacity='0.04'/%3E%3Cpath d='M50 20c15 0 25 10 25 25s-10 25-25 25-25-10-25-25 10-25 25-25z' fill='none' stroke='%23236653' stroke-width='0.5' opacity='0.03'/%3E%3Cpath d='M50 30c10 0 15 5 15 15s-5 15-15 15-15-5-15-15 5-15 15-15z' fill='none' stroke='%23236653' stroke-width='0.5' opacity='0.02'/%3E%3C/svg%3E");
 }

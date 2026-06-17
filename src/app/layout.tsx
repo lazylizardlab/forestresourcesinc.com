@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { inter, merriweather } from "@/lib/fonts";
+import { oswald, publicSans } from "@/lib/fonts";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -105,12 +105,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
+    <html lang="en" className={`${oswald.variable} ${publicSans.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* No-JS fallback: reveal-on-scroll content should never stay hidden. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body className="min-h-screen">
         <Navigation />

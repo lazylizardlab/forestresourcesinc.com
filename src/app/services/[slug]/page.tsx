@@ -124,7 +124,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-24 overflow-hidden">
+      <section className="relative py-20 overflow-hidden">
         {service.image ? (
           <>
             <div className="absolute inset-0 z-0">
@@ -152,7 +152,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             All Services
           </Link>
 
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-4">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white font-semibold uppercase leading-[1.05] mb-4">
             {service.title}
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">

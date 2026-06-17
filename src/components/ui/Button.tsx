@@ -22,14 +22,13 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-semibold transition-all rounded-lg";
+    "inline-flex items-center justify-center font-bold rounded-[3px] transition-[transform,filter,background-color,color] duration-200 hover:-translate-y-px";
 
   const variants = {
-    primary: "bg-forest-700 hover:bg-forest-800 text-white shadow-lg hover:shadow-xl",
-    secondary:
-      "bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm",
+    primary: "bg-forest text-white hover:brightness-110",
+    secondary: "bg-gold text-[#23271d] hover:brightness-105",
     outline:
-      "bg-transparent border-2 border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-white",
+      "bg-transparent border-[1.5px] border-forest text-forest hover:bg-forest hover:text-white",
   };
 
   const sizes = {
