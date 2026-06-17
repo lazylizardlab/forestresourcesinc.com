@@ -1,17 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
-import {
-  TreePine,
-  Sprout,
-  Leaf,
-  Apple,
-  TrendingUp,
-  Scissors,
-  Tractor,
-  Ban,
-  ArrowRight,
-} from "lucide-react";
+import { RevealStagger } from "@/components/ui/Reveal";
+import { CtaBand } from "@/components/site/CtaBand";
 import { servicesData } from "@/lib/services-data";
 
 export const metadata: Metadata = {
@@ -23,127 +14,148 @@ export const metadata: Metadata = {
   },
 };
 
-const IconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  TreePine,
-  Sprout,
-  Leaf,
-  Apple,
-  TrendingUp,
-  Scissors,
-  Tractor,
-  Ban,
-};
+const services = [
+  {
+    n: "01",
+    slug: "forest-stewardship-plans",
+    title: "Forest Stewardship Plans",
+    body: "A written, long-term roadmap for your property built around your goals — whether that's timber income, wildlife, recreation, or simply healthy woods. Plans can qualify your land for reduced property-tax assessment and cost-share programs.",
+    tags: ["Property walk-through", "Tax-program eligibility", "Year-by-year recommendations"],
+  },
+  {
+    n: "02",
+    slug: "tree-planting",
+    title: "Tree Planting",
+    body: "Reforestation and new stand establishment using native Illinois hardwoods and conifers. We handle site prep, species selection, planting, and early survival so your investment takes hold.",
+    tags: ["Site preparation", "Native species", "Survival follow-up"],
+  },
+  {
+    n: "03",
+    slug: "wildlife-enhancement",
+    title: "Wildlife Enhancement",
+    body: "Practical habitat improvements that bring more deer, turkey, and songbirds to your land. From edge feathering to mast trees to water sources, we shape your property for the wildlife you want to see.",
+    tags: ["Edge & cover work", "Mast trees", "Habitat planning"],
+  },
+  {
+    n: "04",
+    slug: "food-plots-crp-seeding",
+    title: "Food Plots & CRP Seeding",
+    body: "Seeding and food plots for both wildlife and conservation acres. We match seed mixes to your soil and goals, and handle establishment from ground prep to drilling.",
+    tags: ["Custom seed mixes", "Ground prep", "CRP-compliant"],
+  },
+  {
+    n: "05",
+    slug: "timber-appraisals-sales",
+    title: "Timber Appraisals & Sales",
+    body: "Know what your timber is worth before you sell. We provide honest appraisals and manage the sale start to finish — marking, bidding, and contracts — so you get fair value and your land is left in good shape.",
+    tags: ["Independent appraisal", "Marked & bid", "Contract oversight"],
+  },
+  {
+    n: "06",
+    slug: "forest-stand-improvement",
+    title: "Forest Stand Improvement",
+    body: "Targeted thinning and timber stand improvement (TSI) that removes low-value and competing trees so your best timber grows faster and healthier. Good for both wood value and wildlife.",
+    tags: ["Thinning", "Crop-tree release", "TSI"],
+  },
+  {
+    n: "07",
+    slug: "crp-management",
+    title: "CRP Management",
+    body: "Keep your Conservation Reserve Program acres in compliance and in good condition. We handle the required mid-contract management — mowing, prescribed burning, and maintenance — on schedule.",
+    tags: ["Mowing", "Prescribed burns", "Compliance upkeep"],
+  },
+  {
+    n: "08",
+    slug: "invasive-species-control",
+    title: "Invasive Species Control",
+    body: "Take back your woods from bush honeysuckle, autumn olive, and other invasives that crowd out native growth. We use targeted cutting and treatment to clear them and keep them from coming back.",
+    tags: ["Honeysuckle removal", "Autumn olive", "Follow-up treatment"],
+  },
+];
+
+/** Pull each card's photo from the canonical service data, keyed by slug. */
+const imageBySlug: Record<string, string | undefined> = Object.fromEntries(
+  servicesData.map((s) => [s.slug, s.image]),
+);
 
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-forest-900 overflow-hidden">
-        <div className="absolute inset-0 bg-topo opacity-30" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-forest-400 text-sm font-semibold uppercase tracking-widest">
-            What We Offer
-          </span>
-          <h1 className="font-serif text-4xl md:text-6xl text-white font-bold mt-3 mb-4">
+      {/* PAGE HERO */}
+      <section className="bg-forest text-white">
+        <RevealStagger className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-14">
+          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-wheat">
             Our Services
-          </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            From stewardship planning to timber sales, we provide end-to-end
-            forestry services for landowners across Central & Southern Illinois.
-          </p>
-        </div>
-        {/* Bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-            className="w-full h-10 md:h-16"
-          >
-            <path
-              d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z"
-              className="fill-stone-50"
-            />
-          </svg>
-        </div>
-      </section>
-
-      {/* Services List - alternating layout */}
-      <section className="py-16 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16">
-            {servicesData.map((service, index) => {
-              const Icon = IconMap[service.iconName];
-              const isEven = index % 2 === 0;
-
-              return (
-                <Link
-                  key={service.id}
-                  href={`/services/${service.slug}`}
-                  className="group block"
-                >
-                  <div
-                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-8 items-center`}
-                  >
-                    {/* Image */}
-                    {service.image ? (
-                      <div className="md:w-2/5 relative h-64 md:h-80 w-full rounded-2xl overflow-hidden shadow-md group-hover:shadow-xl transition-shadow">
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, 40vw"
-                        />
-                      </div>
-                    ) : (
-                      <div className="md:w-2/5 h-64 md:h-80 w-full rounded-2xl bg-gradient-to-br from-forest-100 to-forest-200 flex items-center justify-center">
-                        {Icon && (
-                          <Icon size={80} className="text-forest-400" />
-                        )}
-                      </div>
-                    )}
-
-                    {/* Content */}
-                    <div className="md:w-3/5">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 bg-forest-50 rounded-lg flex items-center justify-center group-hover:bg-forest-600 transition-colors">
-                          {Icon && (
-                            <Icon
-                              size={20}
-                              className="text-forest-600 group-hover:text-white transition-colors"
-                            />
-                          )}
-                        </div>
-                        <span className="text-forest-600 text-xs font-bold uppercase tracking-widest">
-                          Service {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-
-                      <h2 className="font-serif text-3xl font-bold text-stone-900 mb-3 group-hover:text-forest-800 transition-colors">
-                        {service.title}
-                      </h2>
-                      <p className="text-stone-600 leading-relaxed text-lg mb-4">
-                        {service.description}
-                      </p>
-                      <p className="text-stone-500 leading-relaxed mb-6 line-clamp-3">
-                        {service.fullDescription}
-                      </p>
-
-                      <span className="inline-flex items-center text-forest-700 font-semibold gap-2 group-hover:gap-3 transition-all">
-                        View Details
-                        <ArrowRight
-                          size={16}
-                          className="transition-transform group-hover:translate-x-1"
-                        />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
           </div>
-        </div>
+          <h1 className="mb-4 max-w-[760px] font-display text-[34px] font-semibold uppercase leading-[1.05] sm:text-[48px]">
+            Everything it takes to manage timber and land.
+          </h1>
+          <p className="max-w-[600px] text-[18px] leading-relaxed text-sage-soft">
+            Eight core services covering the full life of your woods — planning,
+            planting, improving, harvesting, and protecting. All across Central
+            &amp; Southern Illinois.
+          </p>
+        </RevealStagger>
       </section>
+
+      {/* SERVICES LIST */}
+      <RevealStagger className="mx-auto max-w-[1100px] px-5 pb-8 pt-5 sm:px-8 lg:px-14">
+        {services.map((service, i) => (
+          <Link
+            key={service.n}
+            href={`/services/${service.slug}`}
+            className={`group block py-[46px] ${
+              i < services.length - 1 ? "border-b border-line" : ""
+            }`}
+          >
+            <div className="grid gap-6 lg:grid-cols-[1fr_clamp(240px,26vw,330px)] lg:items-center lg:gap-11">
+              {/* Number + copy */}
+              <div className="grid grid-cols-[auto_1fr] gap-6 sm:gap-9">
+                <div className="w-9 font-display text-[24px] font-bold text-[#cdc3a3] sm:w-[54px] sm:text-[30px]">
+                  {service.n}
+                </div>
+                <div>
+                  <h2 className="mb-3 font-display text-[24px] font-bold transition-colors group-hover:text-amber sm:text-[30px]">
+                    {service.title}
+                  </h2>
+                  <p className="mb-[18px] max-w-[680px] text-[16px] leading-relaxed text-bark-soft sm:text-[17px]">
+                    {service.body}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {service.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-[3px] bg-paper-soft px-[13px] py-1.5 text-[13px] font-semibold text-[#52604a]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo — wide banner on mobile, right-hand rail on desktop */}
+              {imageBySlug[service.slug] && (
+                <div className="relative order-first aspect-[16/9] overflow-hidden rounded-[5px] border border-card-line lg:order-none lg:aspect-[4/3]">
+                  <Image
+                    src={imageBySlug[service.slug]!}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 330px, 100vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                  />
+                </div>
+              )}
+            </div>
+          </Link>
+        ))}
+      </RevealStagger>
+
+      {/* CTA */}
+      <CtaBand
+        heading="Not sure where to start?"
+        copy="Tell us about your land and we'll point you in the right direction — free."
+      />
     </>
   );
 }

@@ -1,16 +1,17 @@
-import { Inter, Merriweather } from "next/font/google";
+import { Oswald, Public_Sans } from "next/font/google";
 
-export const inter = Inter({
+// Display / headline face — condensed, rugged. Hero statements set uppercase.
+export const oswald = Oswald({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-oswald",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
-export const merriweather = Merriweather({
+// Body / UI face — plain, sturdy, very readable.
+export const publicSans = Public_Sans({
   subsets: ["latin"],
-  variable: "--font-merriweather",
+  variable: "--font-public-sans",
   display: "swap",
-  weight: ["300", "400", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });

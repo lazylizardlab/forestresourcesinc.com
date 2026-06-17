@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Reveal, RevealStagger } from "@/components/ui/Reveal";
+import { MapEmbed } from "@/components/site/MapEmbed";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -13,40 +15,95 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-24 bg-forest-900 overflow-hidden">
-        <div className="absolute inset-0 bg-topo opacity-30" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-forest-400 text-sm font-semibold uppercase tracking-widest">
-            Get in Touch
-          </span>
-          <h1 className="font-serif text-4xl md:text-6xl text-white font-bold mt-3 mb-4">
-            Contact Us
+      {/* HERO */}
+      <section className="bg-forest text-white">
+        <RevealStagger className="mx-auto max-w-[1320px] px-5 py-15 sm:px-8 lg:px-14">
+          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-wheat">
+            Get in touch
+          </div>
+          <h1 className="mb-3.5 font-display text-[34px] font-semibold uppercase leading-[1.05] sm:text-[48px]">
+            Let&apos;s talk about your land.
           </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Ready to discuss your property? Schedule a free consultation and
-            let&apos;s build a plan for your land.
+          <p className="max-w-[560px] text-[18px] leading-relaxed text-sage-soft">
+            Free consultation, no pressure. Call Perry directly, or send a note
+            and we&apos;ll get back to you.
           </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-            className="w-full h-10 md:h-16"
-          >
-            <path
-              d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z"
-              className="fill-white"
-            />
-          </svg>
-        </div>
+        </RevealStagger>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* BODY */}
+      <section className="mx-auto grid max-w-[1320px] items-start gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 lg:px-14">
+        {/* Form */}
+        <Reveal>
           <ContactForm />
-        </div>
+        </Reveal>
+
+        {/* Details */}
+        <Reveal index={1} className="flex flex-col gap-5">
+          <div className="rounded-[6px] bg-paper-soft p-7 sm:p-[30px]">
+            <div className="mb-[18px] text-xs font-bold uppercase tracking-[0.1em] text-amber">
+              Contact
+            </div>
+            <div className="flex flex-col gap-[18px]">
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
+                  Phone
+                </div>
+                <a
+                  href="tel:2172591500"
+                  className="font-display text-[24px] font-bold text-forest"
+                >
+                  217-259-1500
+                </a>
+              </div>
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
+                  Email
+                </div>
+                <a
+                  href="mailto:perrybushue@forestresourcesinc.com"
+                  className="break-words text-[16px] font-semibold text-forest"
+                >
+                  perrybushue@forestresourcesinc.com
+                </a>
+              </div>
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
+                  Location
+                </div>
+                <div className="text-[16px] font-semibold text-forest">
+                  Shumway, IL · Effingham County
+                </div>
+              </div>
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
+                  Follow
+                </div>
+                <a
+                  href="https://www.facebook.com/forestresources007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[16px] font-semibold text-forest"
+                >
+                  Facebook
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[6px] bg-forest p-7 text-[#eef0e6] sm:p-[30px]">
+            <div className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-wheat">
+              Service area
+            </div>
+            <p className="mb-3.5 text-[15.5px] leading-relaxed text-sage-soft">
+              We work throughout Central &amp; Southern Illinois. Not sure if
+              you&apos;re in our area? Just call — we&apos;ll let you know.
+            </p>
+            <div className="h-[170px] overflow-hidden rounded-[4px]">
+              <MapEmbed zoom={7} />
+            </div>
+          </div>
+        </Reveal>
       </section>
     </>
   );

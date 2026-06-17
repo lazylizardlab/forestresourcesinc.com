@@ -1,180 +1,180 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Metadata } from "next";
-import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
-import { SectionReveal } from "@/components/ui/SectionReveal";
-import { Button } from "@/components/ui/Button";
+import { Reveal, RevealStagger } from "@/components/ui/Reveal";
+import { CtaBand } from "@/components/site/CtaBand";
+import { PhotoBand } from "@/components/site/PhotoBand";
+import { MapEmbed } from "@/components/site/MapEmbed";
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Forest Resources Inc. — Perry Bushue, with over 20 years of forestry experience serving Central & Southern Illinois. 650+ plans written, 500+ clients served.",
+    "Learn about Forest Resources Inc. — Perry Bushue, with over 20 years of forestry experience serving Central & Southern Illinois. 650+ stewardship plans written for hundreds of landowners and several state parks.",
   alternates: {
     canonical: "https://www.forestresourcesinc.com/about",
   },
 };
 
 const stats = [
-  { value: 500, suffix: "+", label: "Clients served" },
-  { value: 650, suffix: "+", label: "Plans written" },
-  { value: 8000, suffix: "+", label: "Acres managed" },
-  { value: 450000, suffix: "+", label: "Trees planted" },
+  { value: "20+", label: "Years of experience" },
+  { value: "650+", label: "Stewardship plans written" },
+  { value: "100s", label: "Landowners partnered with" },
+  { value: "Several", label: "State parks served" },
+];
+
+const approach = [
+  {
+    title: "Honest first.",
+    body: "We tell you what your land and timber are actually worth, and what's worth doing — even when the answer is \"wait.\"",
+  },
+  {
+    title: "Hands-on.",
+    body: "Perry walks the property, makes the plan, and is on site for the work. You always know who you're dealing with.",
+  },
+  {
+    title: "Long-term.",
+    body: "Good forestry plays out over decades. We plan for the woods you'll have in twenty years, not just today.",
+  },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-32 pb-24 bg-forest-900 overflow-hidden">
-        <div className="absolute inset-0 bg-topo opacity-30" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-forest-400 text-sm font-semibold uppercase tracking-widest">
-            Our Story
-          </span>
-          <h1 className="font-serif text-4xl md:text-6xl text-white font-bold mt-3 mb-4">
+      {/* HERO */}
+      <section className="mx-auto grid max-w-[1320px] md:grid-cols-2">
+        <RevealStagger className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-14 md:py-[76px]">
+          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-amber">
             About Forest Resources Inc.
+          </div>
+          <h1 className="mb-5 font-display text-[34px] font-semibold uppercase leading-[1.05] sm:text-[48px]">
+            A local forester who knows Illinois woods.
           </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Two decades of hands-on forestry experience, serving landowners
-            across Central & Southern Illinois.
+          <p className="max-w-[460px] text-[18px] leading-relaxed text-bark-soft">
+            Forest Resources Inc. is a family-owned forestry business based in
+            Shumway, in Effingham County. For over twenty years we&apos;ve helped
+            Illinois landowners care for, improve, and profit from their land.
           </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-            className="w-full h-10 md:h-16"
-          >
-            <path
-              d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z"
-              className="fill-white"
-            />
-          </svg>
-        </div>
+        </RevealStagger>
+        <Reveal className="relative min-h-[300px] md:min-h-[460px]">
+          <Image
+            src="/images/perry.jpg"
+            alt="Perry Bushue of Forest Resources Inc. in the field"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </Reveal>
       </section>
 
-      {/* Story */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-start gap-16">
-            {/* Images */}
-            <SectionReveal direction="left" className="lg:w-1/2">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg">
-                  <Image
-                    src="/images/tree-planting.jpg"
-                    alt="Tree planting operations"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                </div>
-                <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg mt-8">
-                  <Image
-                    src="/images/tractor.jpg"
-                    alt="Forestry equipment in the field"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                </div>
+      {/* TRACK RECORD */}
+      <section className="bg-forest text-[#eef0e6]">
+        <RevealStagger className="mx-auto grid max-w-[1320px] grid-cols-2 sm:grid-cols-4">
+          {stats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`border-forest-line px-8 py-[30px] sm:px-10 ${
+                i % 2 === 1 ? "border-r-0" : "border-r"
+              } ${i === 3 ? "sm:border-r-0" : "sm:border-r"} ${
+                i < 2 ? "border-b sm:border-b-0" : ""
+              }`}
+            >
+              <div className="font-display text-[34px] font-bold leading-none sm:text-[40px]">
+                {stat.value}
               </div>
-            </SectionReveal>
-
-            {/* Text */}
-            <SectionReveal direction="right" className="lg:w-1/2">
-              <h2 className="font-serif text-3xl md:text-4xl text-stone-900 font-bold mb-6">
-                Who We Are
-              </h2>
-              <div className="space-y-5 text-stone-700 text-lg leading-relaxed">
-                <p>
-                  Perry Bushue has over 20 years of experience in the forestry
-                  industry, specializing in all aspects of timber and land
-                  management — from tree planting to timber sales to wildlife
-                  enhancement.
-                </p>
-                <p>
-                  Though based in Shumway, IL (Effingham County), Forest
-                  Resources Inc. has completed management projects all over
-                  Illinois.
-                </p>
-                <p>
-                  Forest Resources Inc. has partnered with hundreds of
-                  landowners and several state parks in Illinois. With over 600
-                  management plans written and thousands of acres managed, we
-                  are a trusted source for timber and land management services.
-                </p>
-                <p>
-                  We work closely with landowners and state parks to create
-                  tailored management plans that meet the unique needs of the
-                  property. Our ongoing work with these clients reflects our
-                  commitment to quality and reliability, and we are proud to
-                  have built long-lasting relationships with our clients.
-                </p>
+              <div className="mt-1.5 text-[13px] font-medium text-sage">
+                {stat.label}
               </div>
-            </SectionReveal>
-          </div>
-        </div>
+            </div>
+          ))}
+        </RevealStagger>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-wood-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionReveal>
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-900 font-bold text-center mb-12">
-              Our Track Record
-            </h2>
-          </SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <SectionReveal key={stat.label}>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-forest-700 font-serif">
-                    <AnimatedCounter
-                      target={stat.value}
-                      suffix={stat.suffix}
-                    />
-                  </div>
-                  <div className="text-sm text-stone-600 mt-2">
-                    {stat.label}
-                  </div>
+      {/* STORY */}
+      <RevealStagger className="mx-auto max-w-[820px] px-5 py-[76px] sm:px-8">
+        <h2 className="mb-[22px] font-display text-[28px] font-bold sm:text-[34px]">
+          Twenty years of doing it right.
+        </h2>
+        <p className="mb-5 text-[17.5px] leading-[1.75] text-[#42423a]">
+          Perry Bushue has spent his career in the woods. Over more than two
+          decades, he&apos;s worked every side of forestry in Illinois — planting
+          new stands, thinning crowded ones, appraising and selling timber,
+          building wildlife habitat, and writing the stewardship plans that tie
+          it all together.
+        </p>
+        <p className="mb-5 text-[17.5px] leading-[1.75] text-[#42423a]">
+          That experience adds up to more than 650 stewardship plans and projects
+          all across the state, from private family woodlots to several Illinois
+          state parks. It&apos;s hands-on work, and Perry does it personally —
+          when you hire Forest Resources, you get the forester, not a
+          subcontractor.
+        </p>
+        <p className="text-[17.5px] leading-[1.75] text-[#42423a]">
+          The approach is simple: understand what you want from your land, give
+          you an honest plan to get there, and do the work right. No upselling,
+          no jargon — just good forestry from someone who lives and works in the
+          same part of Illinois you do.
+        </p>
+      </RevealStagger>
+
+      {/* PHOTO BAND — editorial divider */}
+      <PhotoBand
+        image="/images/logging.jpg"
+        alt="A forester felling and limbing hardwood timber in the Illinois woods."
+        focus="center 45%"
+        eyebrow="Rooted in Illinois"
+        quote="We don't just write the plan — we walk the ground, mark the trees, and see the work through."
+      />
+
+      {/* APPROACH */}
+      <section className="bg-paper-soft">
+        <div className="mx-auto max-w-[1320px] px-5 py-[72px] sm:px-8 lg:px-14">
+          <h2 className="mb-9 font-display text-[28px] font-bold sm:text-[32px]">
+            How we work
+          </h2>
+          <RevealStagger className="grid gap-7 sm:grid-cols-3">
+            {approach.map((item) => (
+              <div key={item.title}>
+                <div className="mb-2.5 font-display text-[22px] font-bold text-amber">
+                  {item.title}
                 </div>
-              </SectionReveal>
+                <p className="text-[15.5px] leading-relaxed text-bark-soft">
+                  {item.body}
+                </p>
+              </div>
             ))}
+          </RevealStagger>
+        </div>
+      </section>
+
+      {/* SERVICE AREA */}
+      <RevealStagger className="mx-auto grid max-w-[1320px] items-center gap-10 px-5 py-[72px] sm:px-8 md:grid-cols-2 md:gap-[50px] lg:px-14">
+        <div>
+          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-amber">
+            Where we work
           </div>
+          <h2 className="mb-4 font-display text-[28px] font-bold sm:text-[32px]">
+            Central &amp; Southern Illinois.
+          </h2>
+          <p className="mb-4 text-[16.5px] leading-relaxed text-bark-soft">
+            Based in Shumway (Effingham County), we travel throughout Central and
+            Southern Illinois for projects of every size. If you&apos;re not sure
+            whether you&apos;re in our area, just give us a call.
+          </p>
+          <Link href="/contact" className="text-sm font-bold text-amber">
+            Get in touch →
+          </Link>
         </div>
-      </section>
-
-      {/* Image Band */}
-      <section className="relative h-72 md:h-96 overflow-hidden">
-        <Image
-          src="/images/drone.jpg"
-          alt="Aerial view of managed forest"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-forest-950/30" />
-      </section>
-
-      {/* Service Area */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <SectionReveal>
-            <h2 className="font-serif text-3xl md:text-4xl text-stone-900 font-bold mb-6">
-              Serving Central & Southern Illinois
-            </h2>
-            <p className="text-stone-600 text-lg leading-relaxed mb-8">
-              Based in Shumway, IL (Effingham County), we provide on-site
-              visits and forestry services throughout Central and Southern
-              Illinois. No matter where your property is, we can help you
-              develop a plan that meets your goals.
-            </p>
-            <Button href="/contact" size="lg">
-              Schedule a Site Visit
-            </Button>
-          </SectionReveal>
+        <div className="h-[320px] overflow-hidden rounded-[4px]">
+          <MapEmbed zoom={8} />
         </div>
-      </section>
+      </RevealStagger>
+
+      {/* CTA */}
+      <CtaBand
+        heading="Let's talk about your land."
+        copy="Free consultation, no pressure. You'll talk to Perry directly."
+      />
     </>
   );
 }
