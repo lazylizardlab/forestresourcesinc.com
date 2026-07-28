@@ -130,7 +130,7 @@ export default function Home() {
             width={358}
             height={358}
             priority
-            className="order-first h-auto w-[112px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:w-[132px] md:order-none md:w-[32vw] md:max-w-[358px]"
+            className="order-first h-auto w-[150px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] md:order-none md:w-[32vw] md:max-w-[358px]"
           />
         </RevealStagger>
       </Duotone>
