@@ -146,10 +146,11 @@
    section can pick one up alongside its own background color. */
 
 @utility texture-dots-ink {
-  /* Halftone dot field for the cream bands. The dots are held well below
-     full ink: at full strength they read as dark as the type sitting on
-     them and shred anything lighter than the slab headline — the eyebrow
-     and subhead on the home page's "what do you want out of it?" band. */
+  /* Halftone dot field for the cream bands. Only goes behind large or solid
+     content — a slab headline, a card. Small type set directly on it stays
+     hard to read at any dot weight that's still visible itself, so sections
+     carrying an eyebrow or body copy take plain cream-2 instead. Held well
+     below full ink, where the dots read as dark as the type beside them. */
   background-image: radial-gradient(rgba(28, 21, 16, 0.42) 1.1px, transparent 1.2px);
   background-size: 13px 13px;
 }

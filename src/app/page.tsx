@@ -142,7 +142,12 @@ export default function Home() {
       <StatBar stats={stats} className="border-b-4 border-rust" />
 
       {/* SELF-DIAGNOSIS — "what do you want out of it?" */}
-      <section className="texture-dots-ink bg-cream-2 px-5 py-14 sm:px-8 sm:py-[60px] lg:px-14">
+      {/* No dot field here, unlike the About band: this is the only cream
+          section carrying small type, and the stipple interferes with the
+          eyebrow and subhead at any weight that's still visible itself.
+          cream-2 is dark enough against the page cream to hold the band on
+          its own. */}
+      <section className="bg-cream-2 px-5 py-14 sm:px-8 sm:py-[60px] lg:px-14">
         <div className="mx-auto max-w-[1320px]">
           <Reveal className="mb-8 text-center">
             <div className="mb-3 font-display text-xs uppercase tracking-[0.26em] text-rust-dark">
