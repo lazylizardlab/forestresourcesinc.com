@@ -146,8 +146,11 @@
    section can pick one up alongside its own background color. */
 
 @utility texture-dots-ink {
-  /* Halftone dot field for the cream bands. */
-  background-image: radial-gradient(#1c1510 1.1px, transparent 1.2px);
+  /* Halftone dot field for the cream bands. The dots are held well below
+     full ink: at full strength they read as dark as the type sitting on
+     them and shred anything lighter than the slab headline — the eyebrow
+     and subhead on the home page's "what do you want out of it?" band. */
+  background-image: radial-gradient(rgba(28, 21, 16, 0.42) 1.1px, transparent 1.2px);
   background-size: 13px 13px;
 }
 
