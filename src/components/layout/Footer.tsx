@@ -21,7 +21,7 @@ export function Footer() {
           <div className="mb-4 font-slab text-[22px] leading-[1.15] text-parch-2">
             FOREST
             <br />
-            RESOURCES INC.
+            RESOURCES
           </div>
           <p className="mb-4 max-w-[280px] text-sm leading-[1.65] text-dust-5">
             Timber and land management for Central &amp; Southern Illinois.
