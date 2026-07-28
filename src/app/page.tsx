@@ -122,15 +122,19 @@ export default function Home() {
             </div>
           </div>
           {/* Sits beside the headline on desktop. Below md the grid collapses
-              to one column, so it moves above the headline at badge size —
-              the two won't fit side by side and the mark shouldn't be lost. */}
+              to one column and it moves above the headline at badge size.
+              Centered only on phones: a circular seal has no true left edge,
+              so at narrow widths it reads as orphaned against the dead space
+              to its right. Past sm there's enough canvas that a centered mark
+              instead floats away from the left-aligned copy, so it anchors
+              back to the shared left edge. */}
           <Image
             src="/logo.png"
             alt="Forest Resources Inc."
             width={358}
             height={358}
             priority
-            className="order-first h-auto w-[150px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] md:order-none md:w-[32vw] md:max-w-[358px]"
+            className="order-first mx-auto h-auto w-[200px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:mx-0 md:order-none md:w-[32vw] md:max-w-[358px]"
           />
         </RevealStagger>
       </Duotone>
