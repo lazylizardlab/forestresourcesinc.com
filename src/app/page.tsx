@@ -91,7 +91,7 @@ export default function Home() {
               "radial-gradient(900px 480px at 74% 34%,rgba(224,163,78,.3),transparent 72%)",
           }}
         />
-        <RevealStagger className="relative mx-auto grid max-w-[1320px] items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12 lg:px-14 lg:py-[92px]">
+        <RevealStagger className="relative mx-auto grid max-w-[1320px] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12 lg:px-14 lg:py-[92px]">
           <div>
             <h1 className="mb-5 font-slab text-[clamp(40px,7vw,78px)] leading-[0.93] text-cream [text-shadow:0_4px_24px_rgba(0,0,0,.55)]">
               KNOW WHAT
@@ -121,13 +121,16 @@ export default function Home() {
               </a>
             </div>
           </div>
+          {/* Sits beside the headline on desktop. Below md the grid collapses
+              to one column, so it moves above the headline at badge size —
+              the two won't fit side by side and the mark shouldn't be lost. */}
           <Image
             src="/logo.png"
             alt="Forest Resources Inc."
             width={358}
             height={358}
             priority
-            className="hidden h-auto w-[32vw] max-w-[358px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] md:block"
+            className="order-first h-auto w-[112px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:w-[132px] md:order-none md:w-[32vw] md:max-w-[358px]"
           />
         </RevealStagger>
       </Duotone>
