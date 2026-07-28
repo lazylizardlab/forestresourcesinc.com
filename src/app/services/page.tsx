@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "next";
 import { RevealStagger } from "@/components/ui/Reveal";
 import { CtaBand } from "@/components/site/CtaBand";
+import { Duotone } from "@/components/site/Duotone";
 import { servicesData } from "@/lib/services-data";
 
 export const metadata: Metadata = {
@@ -14,148 +14,73 @@ export const metadata: Metadata = {
   },
 };
 
-const services = [
-  {
-    n: "01",
-    slug: "forest-stewardship-plans",
-    title: "Forest Stewardship Plans",
-    body: "A written, long-term roadmap for your property built around your goals — whether that's timber income, wildlife, recreation, or simply healthy woods. Plans can qualify your land for reduced property-tax assessment and cost-share programs.",
-    tags: ["Property walk-through", "Tax-program eligibility", "Year-by-year recommendations"],
-  },
-  {
-    n: "02",
-    slug: "tree-planting",
-    title: "Tree Planting",
-    body: "Reforestation and new stand establishment using native Illinois hardwoods and conifers. We handle site prep, species selection, planting, and early survival so your investment takes hold.",
-    tags: ["Site preparation", "Native species", "Survival follow-up"],
-  },
-  {
-    n: "03",
-    slug: "wildlife-enhancement",
-    title: "Wildlife Enhancement",
-    body: "Practical habitat improvements that bring more deer, turkey, and songbirds to your land. From edge feathering to mast trees to water sources, we shape your property for the wildlife you want to see.",
-    tags: ["Edge & cover work", "Mast trees", "Habitat planning"],
-  },
-  {
-    n: "04",
-    slug: "food-plots-crp-seeding",
-    title: "Food Plots & CRP Seeding",
-    body: "Seeding and food plots for both wildlife and conservation acres. We match seed mixes to your soil and goals, and handle establishment from ground prep to drilling.",
-    tags: ["Custom seed mixes", "Ground prep", "CRP-compliant"],
-  },
-  {
-    n: "05",
-    slug: "timber-appraisals-sales",
-    title: "Timber Appraisals & Sales",
-    body: "Know what your timber is worth before you sell. We provide honest appraisals and manage the sale start to finish — marking, bidding, and contracts — so you get fair value and your land is left in good shape.",
-    tags: ["Independent appraisal", "Marked & bid", "Contract oversight"],
-  },
-  {
-    n: "06",
-    slug: "forest-stand-improvement",
-    title: "Forest Stand Improvement",
-    body: "Targeted thinning and timber stand improvement (TSI) that removes low-value and competing trees so your best timber grows faster and healthier. Good for both wood value and wildlife.",
-    tags: ["Thinning", "Crop-tree release", "TSI"],
-  },
-  {
-    n: "07",
-    slug: "crp-management",
-    title: "CRP Management",
-    body: "Keep your Conservation Reserve Program acres in compliance and in good condition. We handle the required mid-contract management — mowing, prescribed burning, and maintenance — on schedule.",
-    tags: ["Mowing", "Prescribed burns", "Compliance upkeep"],
-  },
-  {
-    n: "08",
-    slug: "invasive-species-control",
-    title: "Invasive Species Control",
-    body: "Take back your woods from bush honeysuckle, autumn olive, and other invasives that crowd out native growth. We use targeted cutting and treatment to clear them and keep them from coming back.",
-    tags: ["Honeysuckle removal", "Autumn olive", "Follow-up treatment"],
-  },
-];
-
-/** Pull each card's photo from the canonical service data, keyed by slug. */
-const imageBySlug: Record<string, string | undefined> = Object.fromEntries(
-  servicesData.map((s) => [s.slug, s.image]),
-);
-
 export default function ServicesPage() {
   return (
     <>
       {/* PAGE HERO */}
-      <section className="bg-forest text-white">
-        <RevealStagger className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-14">
-          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-wheat">
-            Our Services
+      <section className="relative isolate overflow-hidden bg-night-2 px-5 py-14 sm:px-8 sm:py-[56px] lg:px-14">
+        <div aria-hidden className="texture-dots-gold absolute inset-0 opacity-[0.09]" />
+        <div className="relative mx-auto max-w-[1320px]">
+          <div className="mb-5 inline-block rounded-full border-2 border-[rgba(224,163,78,.5)] px-4 py-1.5 font-display text-[11.5px] uppercase tracking-[0.24em] text-gold">
+            The full list
           </div>
-          <h1 className="mb-4 max-w-[760px] font-display text-[34px] font-semibold uppercase leading-[1.05] sm:text-[48px]">
-            Everything it takes to manage timber and land.
+          <h1 className="mb-4 font-slab text-[36px] uppercase leading-[0.98] text-cream sm:text-[48px] lg:text-[62px]">
+            Eight things
+            <br />
+            we do to woods.
           </h1>
-          <p className="max-w-[600px] text-[18px] leading-relaxed text-sage-soft">
-            Eight core services covering the full life of your woods — planning,
-            planting, improving, harvesting, and protecting. All across Central
-            &amp; Southern Illinois.
+          <p className="max-w-[600px] text-[17px] leading-[1.6] text-dust sm:text-[18px]">
+            Planning, planting, improving, harvesting, protecting — the whole
+            life of a stand. Not sure which one you need? Number 01 is usually
+            the answer.
           </p>
-        </RevealStagger>
+        </div>
       </section>
 
-      {/* SERVICES LIST */}
-      <RevealStagger className="mx-auto max-w-[1100px] px-5 pb-8 pt-5 sm:px-8 lg:px-14">
-        {services.map((service, i) => (
+      {/* THE LIST */}
+      <RevealStagger className="mx-auto max-w-[1320px] px-5 pb-14 pt-4 sm:px-8 lg:px-14 lg:pb-[60px]">
+        {servicesData.map((service) => (
           <Link
-            key={service.n}
+            key={service.slug}
             href={`/services/${service.slug}`}
-            className={`group block py-[46px] ${
-              i < services.length - 1 ? "border-b border-line" : ""
-            }`}
+            className="group grid items-center gap-6 border-b-2 border-dashed border-[rgba(28,21,16,.22)] py-8 sm:py-[34px] lg:grid-cols-[96px_1fr_300px] lg:gap-[30px]"
           >
-            <div className="grid gap-6 lg:grid-cols-[1fr_clamp(240px,26vw,330px)] lg:items-center lg:gap-11">
-              {/* Number + copy */}
-              <div className="grid grid-cols-[auto_1fr] gap-6 sm:gap-9">
-                <div className="w-9 font-display text-[24px] font-bold text-[#cdc3a3] sm:w-[54px] sm:text-[30px]">
-                  {service.n}
-                </div>
-                <div>
-                  <h2 className="mb-3 font-display text-[24px] font-bold transition-colors group-hover:text-amber sm:text-[30px]">
-                    {service.title}
-                  </h2>
-                  <p className="mb-[18px] max-w-[680px] text-[16px] leading-relaxed text-bark-soft sm:text-[17px]">
-                    {service.body}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {service.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-[3px] bg-paper-soft px-[13px] py-1.5 text-[13px] font-semibold text-[#52604a]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Photo — wide banner on mobile, right-hand rail on desktop */}
-              {imageBySlug[service.slug] && (
-                <div className="relative order-first aspect-[16/9] overflow-hidden rounded-[5px] border border-card-line lg:order-none lg:aspect-[4/3]">
-                  <Image
-                    src={imageBySlug[service.slug]!}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 330px, 100vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                  />
-                </div>
-              )}
+            {/* Outlined numeral — the design's loudest recurring device. */}
+            <div className="font-slab text-[44px] leading-none text-gold [-webkit-text-stroke:2px_var(--color-ink)] sm:text-[56px]">
+              {service.n}
             </div>
+
+            <div>
+              <h2 className="mb-2.5 font-slab text-[22px] leading-[1.1] transition-colors group-hover:text-rust sm:text-[28px]">
+                {service.title}
+              </h2>
+              <p className="mb-3.5 max-w-[620px] text-[15.5px] leading-[1.65] text-body">
+                {service.summary}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {service.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border-[1.5px] border-ink bg-cream-2 px-3 py-1.5 font-display text-[11.5px] uppercase tracking-[0.12em]"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <Duotone
+              tone="row"
+              src={service.image}
+              alt=""
+              sizes="(min-width: 1024px) 300px, 100vw"
+              className="order-first aspect-[16/9] rounded-[10px] border-[2.5px] border-ink shadow-[0_5px_0_rgba(28,21,16,.28)] lg:order-none lg:aspect-auto lg:h-[170px]"
+            />
           </Link>
         ))}
       </RevealStagger>
 
-      {/* CTA */}
-      <CtaBand
-        heading="Not sure where to start?"
-        copy="Tell us about your land and we'll point you in the right direction — free."
-      />
+      <CtaBand heading="Still not sure where to start?" />
     </>
   );
 }

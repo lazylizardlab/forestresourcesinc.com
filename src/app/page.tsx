@@ -3,6 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal, RevealStagger } from "@/components/ui/Reveal";
 import { CtaBand } from "@/components/site/CtaBand";
+import { Duotone } from "@/components/site/Duotone";
+import { StatBar } from "@/components/site/StatBar";
+import { Arrow } from "@/components/ui/Arrow";
+import { servicesData } from "@/lib/services-data";
 
 export const metadata: Metadata = {
   title:
@@ -17,166 +21,263 @@ export const metadata: Metadata = {
 const stats = [
   { value: "20+", label: "Years in the woods" },
   { value: "650+", label: "Stewardship plans written" },
-  { value: "100s", label: "Illinois landowners served" },
+  { value: "100s", label: "Illinois landowners" },
   { value: "State", label: "Parks & public land too" },
 ];
 
-const services = [
-  { n: "01", title: "Forest Stewardship Plans", desc: "Long-term plans built around your land and goals." },
-  { n: "02", title: "Tree Planting", desc: "Reforestation with native hardwoods and conifers." },
-  { n: "03", title: "Wildlife Enhancement", desc: "Habitat work for deer, turkey, and songbirds." },
-  { n: "04", title: "Food Plots & CRP Seeding", desc: "Seeding for wildlife and conservation acres." },
-  { n: "05", title: "Timber Appraisals & Sales", desc: "Honest appraisals and sales that protect value." },
-  { n: "06", title: "Forest Stand Improvement", desc: "Thinning and TSI for healthier, higher-value stands." },
-  { n: "07", title: "CRP Management", desc: "Mowing, burning, and upkeep to stay compliant." },
-  { n: "08", title: "Invasive Species Control", desc: "Removing honeysuckle, autumn olive, and more." },
+/**
+ * The three self-diagnosis cards. Most callers can't name the service they
+ * need but can name the outcome they want, so the entry point is the outcome.
+ */
+const routes = [
+  {
+    option: "Option 01",
+    head: "Make money off my timber",
+    copy: "Find out what's standing out there and what it's worth before anybody cuts it.",
+    cta: "Timber appraisals & sales",
+    slug: "timber-appraisals-sales",
+    tone: "dark" as const,
+  },
+  {
+    option: "Option 02",
+    head: "See more deer & turkey",
+    copy: "Food plots, edge feathering, cover and water — habitat work that actually moves game.",
+    cta: "Wildlife enhancement",
+    slug: "wildlife-enhancement",
+    tone: "dark" as const,
+  },
+  {
+    option: "Option 03",
+    head: "Honestly? I have no idea",
+    copy: "Perry walks the ground with you and writes down what you've got and what it could be.",
+    cta: "Forest stewardship plans",
+    slug: "forest-stewardship-plans",
+    tone: "rust" as const,
+  },
 ];
+
+const routeTones = {
+  dark: {
+    card: "bg-night-2",
+    eyebrow: "text-gold",
+    copy: "text-dust",
+    link: "text-gold",
+  },
+  rust: {
+    card: "bg-rust",
+    eyebrow: "text-[#f0c7ba]",
+    copy: "text-[#f0d3c9]",
+    link: "text-cream",
+  },
+};
 
 export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="mx-auto grid max-w-[1320px] md:grid-cols-[1.05fr_.95fr]">
-        <RevealStagger className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-14 md:py-20">
-          <div className="mb-5 text-xs font-bold uppercase tracking-[0.13em] text-amber">
-            Family-owned · 20+ years · Central &amp; Southern Illinois
-          </div>
-          <h1 className="mb-[22px] font-display text-[34px] font-semibold uppercase leading-[1.06] tracking-[0.005em] sm:text-[46px]">
-            Get more out of your land.
-          </h1>
-          <p className="mb-8 max-w-[440px] text-[18px] leading-relaxed text-bark-soft sm:text-[19px]">
-            From timber sales to tree planting to wildlife habitat — we build a
-            straightforward plan for your woods and stick around to do the work.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="rounded-[3px] bg-forest px-[26px] py-[15px] text-[15px] font-bold text-white transition-[transform,filter] duration-200 hover:-translate-y-px hover:brightness-110"
-            >
-              Get a Free Consultation
-            </Link>
-            <a
-              href="tel:2172591500"
-              className="rounded-[3px] border-[1.5px] border-forest px-[26px] py-[15px] text-[15px] font-bold text-forest transition-[transform] duration-200 hover:-translate-y-px"
-            >
-              Call 217-259-1500
-            </a>
-          </div>
-        </RevealStagger>
-        <Reveal className="relative min-h-[320px] md:min-h-[520px]">
-          <Image
-            src="/images/tree.jpg"
-            alt="A forester measuring the diameter of a mature hardwood for a timber appraisal."
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 48vw"
-            className="object-cover"
-          />
-        </Reveal>
-      </section>
-
-      {/* TRUST STRIP */}
-      <section className="bg-forest text-[#eef0e6]">
-        <RevealStagger className="mx-auto grid max-w-[1320px] grid-cols-2 sm:grid-cols-4">
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`border-forest-line px-8 py-7 sm:px-10 ${
-                i % 2 === 1 ? "border-r-0" : "border-r"
-              } ${i === 3 ? "sm:border-r-0" : "sm:border-r"} ${
-                i < 2 ? "border-b sm:border-b-0" : ""
-              }`}
-            >
-              <div className="font-display text-[34px] font-bold leading-none sm:text-[38px]">
-                {stat.value}
-              </div>
-              <div className="mt-1.5 text-[13px] font-medium text-sage">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </RevealStagger>
-      </section>
-
-      {/* SERVICES */}
-      <section className="mx-auto max-w-[1320px] px-5 py-[76px] sm:px-8 lg:px-14">
-        <Reveal className="mb-9 flex flex-wrap items-end justify-between gap-4">
+      <Duotone
+        tone="hero"
+        src="/images/logging.jpg"
+        alt=""
+        focus="center 62%"
+        sizes="100vw"
+        priority
+      >
+        {/* Warm key light behind the headline, over the wash. */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(900px 480px at 74% 34%,rgba(224,163,78,.3),transparent 72%)",
+          }}
+        />
+        <RevealStagger className="relative mx-auto grid max-w-[1320px] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12 lg:px-14 lg:py-[92px]">
           <div>
-            <h2 className="mb-2 font-display text-[32px] font-bold sm:text-[40px]">
-              What we do
+            <h1 className="mb-5 font-slab text-[clamp(40px,7vw,78px)] leading-[0.93] text-cream [text-shadow:0_4px_24px_rgba(0,0,0,.55)]">
+              KNOW WHAT
+              <br />
+              YOU&apos;RE
+              <br />
+              <span className="text-gold">STANDING ON.</span>
+            </h1>
+            <p className="mb-7 max-w-[520px] text-[17px] leading-[1.62] text-[#bdb096] text-pretty sm:text-[19px]">
+              Most folks inherit forty acres of timber and no idea what to do
+              with it. That&apos;s our favorite phone call. Twenty years of
+              Illinois woods, 650 stewardship plans, one forester who actually
+              shows up.
+            </p>
+            <div className="flex flex-wrap gap-3.5">
+              <Link
+                href="/services"
+                className="rounded-md bg-rust px-7 py-4 font-display text-[15px] font-semibold uppercase tracking-[0.07em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-[transform,background-color] duration-150 hover:-translate-y-0.5 hover:bg-rust-hi sm:text-base"
+              >
+                Figure out what I need <Arrow />
+              </Link>
+            </div>
+          </div>
+          {/* Sits beside the headline on desktop. Below md the grid collapses
+              to one column and it moves above the headline at badge size.
+              Centered only on phones: a circular seal has no true left edge,
+              so at narrow widths it reads as orphaned against the dead space
+              to its right. Past sm there's enough canvas that a centered mark
+              instead floats away from the left-aligned copy, so it anchors
+              back to the shared left edge. */}
+          <Image
+            src="/logo.png"
+            alt="Forest Resources Inc."
+            width={358}
+            height={358}
+            priority
+            className="order-first mx-auto h-auto w-[200px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:mx-0 md:order-none md:w-[32vw] md:max-w-[358px]"
+          />
+        </RevealStagger>
+      </Duotone>
+
+      <StatBar stats={stats} className="border-b-4 border-rust" />
+
+      {/* SELF-DIAGNOSIS — "what do you want out of it?" */}
+      {/* No dot field here, unlike the About band: this is the only cream
+          section carrying small type, and the stipple interferes with the
+          eyebrow and subhead at any weight that's still visible itself.
+          cream-2 is dark enough against the page cream to hold the band on
+          its own. */}
+      <section className="bg-cream-2 px-5 py-14 sm:px-8 sm:py-[60px] lg:px-14">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal className="mb-8 text-center">
+            <div className="mb-3 font-display text-xs uppercase tracking-[0.26em] text-rust-dark">
+              Start here
+            </div>
+            <h2 className="mb-2.5 font-slab text-[28px] uppercase leading-[1.05] sm:text-[40px]">
+              What do you want out of it?
             </h2>
-            <p className="text-[16px] text-[#5a5a4c]">
-              Everything it takes to manage timber and land across Central &amp;
-              Southern Illinois.
+            <p className="text-[16.5px] text-body">
+              Pick the one that sounds like you. We&apos;ll take you to the right
+              service — free, no pressure.
+            </p>
+          </Reveal>
+          <RevealStagger className="grid gap-5 md:grid-cols-3">
+            {routes.map((route) => {
+              const tone = routeTones[route.tone];
+              return (
+                <Link
+                  key={route.option}
+                  href={`/services/${route.slug}`}
+                  className={`block rounded-[14px] border-[3px] border-night px-6 pb-6 pt-7 shadow-[0_6px_0_rgba(28,21,16,.4)] transition-transform duration-150 hover:-translate-y-[3px] ${tone.card}`}
+                >
+                  <div
+                    className={`mb-2.5 font-display text-[11px] uppercase tracking-[0.2em] ${tone.eyebrow}`}
+                  >
+                    {route.option}
+                  </div>
+                  <div className="mb-2.5 font-slab text-[21px] leading-[1.15] text-cream sm:text-[23px]">
+                    {route.head}
+                  </div>
+                  <p className={`mb-4 text-[14.5px] leading-[1.6] ${tone.copy}`}>
+                    {route.copy}
+                  </p>
+                  <div
+                    className={`font-display text-[13.5px] font-semibold uppercase tracking-[0.09em] ${tone.link}`}
+                  >
+                    {route.cta} <Arrow />
+                  </div>
+                </Link>
+              );
+            })}
+          </RevealStagger>
+        </div>
+      </section>
+
+      {/* EVERYTHING WE DO */}
+      <section className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-14 lg:py-[66px]">
+        <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="mb-2.5 font-display text-xs uppercase tracking-[0.26em] text-rust">
+              Eight ways in
+            </div>
+            <h2 className="mb-2 font-slab text-[30px] uppercase leading-none sm:text-[44px]">
+              Everything we do
+            </h2>
+            <p className="text-[16.5px] text-body">
+              Planning, planting, improving, harvesting, protecting. All of it,
+              across Central &amp; Southern Illinois.
             </p>
           </div>
-          <Link href="/services" className="text-sm font-bold text-amber">
-            All services →
+          <Link
+            href="/services"
+            className="whitespace-nowrap border-b-2 border-rust pb-[3px] font-display text-sm font-semibold uppercase tracking-[0.1em] text-rust transition-colors hover:text-rust-dark"
+          >
+            All services <Arrow />
           </Link>
         </Reveal>
-        <RevealStagger className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => (
+
+        <RevealStagger className="grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
+          {servicesData.map((service) => (
             <Link
-              key={service.n}
-              href="/services"
-              className="block rounded-[4px] border border-card-line bg-white px-5 py-6 transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-wheat hover:shadow-[0_14px_28px_-16px_rgba(36,40,31,0.45)]"
+              key={service.slug}
+              href={`/services/${service.slug}`}
+              className="block overflow-hidden rounded-[10px] border-[2.5px] border-night bg-night-2 shadow-[0_5px_0_rgba(28,21,16,.32)] transition-transform duration-150 hover:-translate-y-1"
             >
-              <div className="mb-3 text-xs font-extrabold text-amber">
-                {service.n}
-              </div>
-              <div className="mb-2 font-display text-[19px] font-semibold leading-tight">
-                {service.title}
-              </div>
-              <div className="text-[13.5px] leading-relaxed text-[#6a6a5a]">
-                {service.desc}
+              <Duotone
+                tone="card"
+                src={service.image}
+                alt=""
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="h-28"
+              />
+              <div className="px-4 pb-[18px] pt-4">
+                <div className="mb-1.5 font-display text-[11px] tracking-[0.2em] text-gold">
+                  {service.n}
+                </div>
+                <div className="mb-[7px] font-slab text-[16.5px] leading-[1.2] text-cream">
+                  {service.title}
+                </div>
+                <div className="text-[13.5px] leading-[1.55] text-dust-3">
+                  {service.blurb}
+                </div>
               </div>
             </Link>
           ))}
         </RevealStagger>
       </section>
 
-      {/* MEET PERRY */}
-      <section className="bg-paper-soft">
-        <RevealStagger className="mx-auto grid max-w-[1320px] md:grid-cols-[.85fr_1.15fr]">
-          <div className="relative min-h-[300px] md:min-h-[460px]">
-            <Image
-              src="/images/perry.jpg"
-              alt="Perry Bushue, owner of Forest Resources Inc."
-              fill
-              sizes="(max-width: 768px) 100vw, 38vw"
-              className="object-cover"
-            />
+      {/* PERRY */}
+      <section className="grid bg-night-2 md:grid-cols-[.9fr_1.1fr]">
+        <Duotone
+          tone="figure"
+          src="/images/perry.jpg"
+          alt="Perry Bushue, owner of Forest Resources Inc., in the field."
+          sizes="(min-width: 768px) 45vw, 100vw"
+          className="min-h-[280px] md:min-h-[440px]"
+        />
+        <RevealStagger className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-12 md:py-14 lg:px-14">
+          <div className="mb-3.5 font-display text-xs uppercase tracking-[0.26em] text-gold">
+            The whole company
           </div>
-          <div className="flex flex-col justify-center px-5 py-14 sm:px-8 md:px-14 md:py-[72px]">
-            <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-amber">
-              Meet Perry Bushue
-            </div>
-            <h2 className="mb-5 font-display text-[30px] font-bold leading-tight sm:text-[36px]">
-              Twenty years of doing it right.
-            </h2>
-            <p className="mb-4 text-[16.5px] leading-relaxed text-bark-soft">
-              Perry has spent over two decades in the forestry business —
-              planting, thinning, appraising, and selling timber for landowners
-              all across Illinois. He&apos;s written more than 650 stewardship
-              plans and worked with hundreds of families and several state
-              parks.
-            </p>
-            <p className="mb-6 text-[16.5px] leading-relaxed text-bark-soft">
-              Based in Shumway, in Effingham County. When you call, you talk to
-              Perry — not a call center.
-            </p>
-            <Link href="/about" className="text-sm font-bold text-amber">
-              More about us →
-            </Link>
-          </div>
+          <h2 className="mb-5 font-slab text-[30px] uppercase leading-[1.04] text-cream sm:text-[42px]">
+            Perry picks up
+            <br />
+            the phone.
+          </h2>
+          <p className="mb-4 max-w-[520px] text-[16px] leading-[1.7] text-dust sm:text-[17px]">
+            Twenty-plus years planting, thinning, appraising, and selling timber
+            for Illinois landowners. More than 650 stewardship plans. Hundreds of
+            families, and a few state parks besides.
+          </p>
+          <p className="mb-6 max-w-[520px] text-[16px] leading-[1.7] text-dust sm:text-[17px]">
+            Based in Shumway, Effingham County. When you call, you get Perry —
+            not a call center, not a subcontractor.
+          </p>
+          <Link
+            href="/about"
+            className="self-start border-b-2 border-gold pb-[3px] font-display text-sm font-semibold uppercase tracking-[0.1em] text-gold transition-colors hover:text-gold-hi"
+          >
+            Read the whole story <Arrow />
+          </Link>
         </RevealStagger>
       </section>
 
-      {/* CTA */}
-      <CtaBand
-        heading="Ready to talk about your land?"
-        copy="Free consultation, no pressure. Give us a call or send a note."
-      />
+      <CtaBand heading="Ready to talk about your land?" />
     </>
   );
 }

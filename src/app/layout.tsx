@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { oswald, publicSans } from "@/lib/fonts";
+import { alfaSlabOne, oswald, publicSans } from "@/lib/fonts";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
@@ -105,7 +105,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${oswald.variable} ${publicSans.variable}`}>
+    <html
+      lang="en"
+      className={`${alfaSlabOne.variable} ${oswald.variable} ${publicSans.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"

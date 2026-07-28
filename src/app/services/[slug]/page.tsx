@@ -1,29 +1,28 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { servicesData } from "@/lib/services-data";
+import { servicesData, getService } from "@/lib/services-data";
 import { ProcessTimeline } from "@/components/services/ProcessTimeline";
 import { BenefitsList } from "@/components/services/BenefitsList";
-import { Button } from "@/components/ui/Button";
+import { CtaBand } from "@/components/site/CtaBand";
+import { Duotone } from "@/components/site/Duotone";
+import { Reveal } from "@/components/ui/Reveal";
+import { Arrow } from "@/components/ui/Arrow";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return servicesData.map((service) => ({
-    slug: service.slug,
-  }));
+  return servicesData.map((service) => ({ slug: service.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = servicesData.find((s) => s.slug === slug);
+  const service = getService(slug);
   if (!service) return {};
 
-  const description = `${service.description} Professional ${service.title.toLowerCase()} services in Central & Southern Illinois from Forest Resources Inc. Call 217-259-1500.`;
+  const description = `${service.summary} Professional ${service.title.toLowerCase()} in Central & Southern Illinois from Forest Resources Inc. Call 217-259-1500.`;
 
   return {
     title: service.title,
@@ -34,22 +33,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${service.title} | Forest Resources Inc.`,
       description,
-      images: service.image ? [{ url: service.image }] : [],
+      images: [{ url: service.image }],
     },
   };
 }
 
 export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const service = servicesData.find((s) => s.slug === slug);
+  const service = getService(slug);
 
   if (!service) notFound();
 
-  // Find related services (next and previous)
-  const currentIndex = servicesData.findIndex((s) => s.slug === slug);
-  const related = servicesData
-    .filter((_, i) => i !== currentIndex)
-    .slice(0, 3);
+  const others = servicesData.filter((s) => s.slug !== service.slug).slice(0, 4);
+  const total = String(servicesData.length).padStart(2, "0");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -80,31 +76,23 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.title,
-    description: service.fullDescription,
+    description: service.full,
     provider: {
       "@type": "LocalBusiness",
       name: "Forest Resources Inc.",
       url: "https://www.forestresourcesinc.com",
     },
-    areaServed: {
-      "@type": "State",
-      name: "Illinois",
-    },
+    areaServed: { "@type": "State", name: "Illinois" },
     url: `https://www.forestresourcesinc.com/services/${service.slug}`,
   };
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: service.howItWorks.map((step) => ({
+    mainEntity: service.steps.map((step) => ({
       "@type": "Question",
       name: step.title,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text:
-          step.description +
-          (step.subItems ? " " + step.subItems.join(". ") : ""),
-      },
+      acceptedAnswer: { "@type": "Answer", text: step.body },
     })),
   };
 
@@ -123,140 +111,120 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* Hero */}
-      <section className="relative py-20 overflow-hidden">
-        {service.image ? (
-          <>
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                priority
-                className="object-cover"
-                sizes="100vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/60 to-forest-950/90" />
-            </div>
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-forest-900" />
-        )}
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* BANNER */}
+      <Duotone
+        tone="banner"
+        src={service.image}
+        alt=""
+        sizes="100vw"
+        priority
+        className="min-h-[260px] sm:min-h-[340px]"
+      >
+        <div className="relative mx-auto flex min-h-[260px] max-w-[1320px] flex-col justify-center px-5 py-12 sm:min-h-[340px] sm:px-8 lg:px-14">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-forest-300 hover:text-white transition-colors text-sm font-medium mb-8"
+            className="mb-4 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:text-gold-hi"
           >
-            <ArrowLeft size={16} />
-            All Services
+            <Arrow dir="left" /> All services &nbsp;·&nbsp; Service {service.n} of{" "}
+            {total}
           </Link>
-
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white font-semibold uppercase leading-[1.05] mb-4">
+          <h1 className="mb-3.5 max-w-[860px] font-slab text-[32px] uppercase leading-[0.98] text-cream [text-shadow:0_3px_14px_rgba(0,0,0,.5)] sm:text-[44px] lg:text-[58px]">
             {service.title}
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
-            {service.subtitle}
+          <p className="max-w-[660px] text-[17px] text-[#d6cbaf] sm:text-[19px]">
+            {service.hook}
           </p>
         </div>
+      </Duotone>
 
-        {/* Bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 z-10">
-          <svg
-            viewBox="0 0 1440 60"
-            preserveAspectRatio="none"
-            className="w-full h-10 md:h-16"
+      {/* BODY */}
+      <div className="mx-auto grid max-w-[1320px] items-start gap-10 px-5 pb-16 pt-12 sm:px-8 lg:grid-cols-[1fr_320px] lg:gap-[52px] lg:px-14 lg:pt-14">
+        <div>
+          <Reveal
+            as="p"
+            className="mb-10 text-[17px] leading-[1.7] text-body-deep text-pretty sm:text-[19px] sm:mb-11"
           >
-            <path
-              d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"
-              className="fill-white"
-            />
-          </svg>
-        </div>
-      </section>
+            {service.full}
+          </Reveal>
 
-      {/* Content */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Full Description */}
-          <div className="mb-16">
-            <p className="text-lg text-stone-700 leading-relaxed">
-              {service.fullDescription}
-            </p>
-          </div>
+          <Reveal
+            as="h2"
+            className="mb-6 font-slab text-[26px] uppercase leading-[1.05] sm:text-[32px]"
+          >
+            How it goes
+          </Reveal>
+          <ProcessTimeline steps={service.steps} />
 
-          {/* How It Works */}
-          <div className="mb-16">
-            <h2 className="font-serif text-3xl font-bold text-stone-900 mb-8">
-              How Does It Work?
-            </h2>
-            <ProcessTimeline steps={service.howItWorks} />
-          </div>
-
-          {/* Special Feature */}
-          {service.specialFeature && (
-            <div className="mb-16 bg-forest-50 border-l-4 border-forest-600 p-8 rounded-r-2xl">
-              <h3 className="text-xl font-bold text-forest-900 mb-3">
-                {service.specialFeature.title}
-              </h3>
-              <p className="text-stone-700 leading-relaxed">
-                {service.specialFeature.description}
+          {service.feature && (
+            <Reveal className="mt-3.5 rounded-[14px] border-[3px] border-night bg-night-2 px-7 py-7 shadow-[0_6px_0_rgba(28,21,16,.3)]">
+              <div className="mb-2.5 font-display text-[11px] uppercase tracking-[0.24em] text-gold">
+                Worth knowing
+              </div>
+              <div className="mb-3 font-slab text-[21px] leading-[1.15] text-cream sm:text-[23px]">
+                {service.feature.title}
+              </div>
+              <p className="text-[15.5px] leading-[1.7] text-dust">
+                {service.feature.body}
               </p>
-            </div>
+            </Reveal>
           )}
 
-          {/* Benefits */}
-          <div className="mb-16">
-            <h2 className="font-serif text-3xl font-bold text-stone-900 mb-8">
-              Benefits
-            </h2>
-            <BenefitsList benefits={service.benefits} />
-          </div>
+          <Reveal
+            as="h2"
+            className="mb-6 mt-12 font-slab text-[26px] uppercase leading-[1.05] sm:text-[32px] lg:mt-[52px]"
+          >
+            Why bother
+          </Reveal>
+          <BenefitsList benefits={service.benefits} />
+        </div>
 
-          {/* CTA */}
-          <div className="py-12 border-t border-stone-200 text-center">
-            <h3 className="text-2xl font-bold text-stone-900 mb-3">
-              Interested in {service.title.toLowerCase()}?
-            </h3>
-            <p className="text-stone-600 mb-8 text-lg">
-              Get in touch today to discuss your forestry and land management
-              needs.
+        {/* RAIL */}
+        <div className="flex flex-col gap-[18px] lg:sticky lg:top-[96px]">
+          <div className="rounded-xl bg-night px-6 py-[26px] text-dust-2 shadow-[0_6px_0_rgba(28,21,16,.3)]">
+            <div className="mb-3 font-display text-[11px] uppercase tracking-[0.22em] text-gold">
+              Interested?
+            </div>
+            <div className="mb-3 font-slab text-[22px] leading-[1.15] text-cream">
+              Let&apos;s get on the calendar.
+            </div>
+            <p className="mb-[18px] text-[14.5px] leading-[1.6] text-dust-4">
+              Free walk-through of your property. You&apos;ll know more when we
+              leave than when we got there.
             </p>
-            <Button href="/contact" size="lg">
-              Get in Touch
-            </Button>
+            {/* Carries the service through so the contact form arrives pre-tagged. */}
+            <Link
+              href={`/contact?service=${encodeURIComponent(service.title)}`}
+              className="block rounded-md bg-rust py-3.5 text-center font-display text-sm font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi"
+            >
+              Ask about this
+            </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Related Services */}
-      <section className="py-16 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-2xl font-bold text-stone-900 mb-8">
-            Other Services
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {related.map((rel) => (
-              <Link
-                key={rel.id}
-                href={`/services/${rel.slug}`}
-                className="group p-6 rounded-2xl bg-white border border-stone-100 shadow-sm hover:shadow-md transition-all"
-              >
-                <h3 className="font-bold text-stone-900 mb-2 group-hover:text-forest-700 transition-colors">
-                  {rel.title}
-                </h3>
-                <p className="text-stone-600 text-sm leading-relaxed mb-3">
-                  {rel.description}
-                </p>
-                <span className="inline-flex items-center text-forest-700 text-sm font-semibold gap-1">
-                  View details
-                  <ArrowRight size={14} />
-                </span>
-              </Link>
-            ))}
+          <div className="rounded-xl border-[2.5px] border-ink bg-cream-2 px-[22px] py-[22px] shadow-[0_5px_0_rgba(28,21,16,.25)]">
+            <div className="mb-3.5 font-display text-[11px] uppercase tracking-[0.22em] text-rust-dark">
+              Other services
+            </div>
+            <div className="flex flex-col gap-[11px]">
+              {others.map((other) => (
+                <Link
+                  key={other.slug}
+                  href={`/services/${other.slug}`}
+                  className="flex items-baseline justify-between gap-3 border-b-[1.5px] border-dashed border-[rgba(28,21,16,.28)] pb-[9px] transition-colors hover:text-rust"
+                >
+                  <span className="font-display text-[15px] tracking-[0.03em]">
+                    {other.title}
+                  </span>
+                  <span className="font-display text-xs text-sand">
+                    {other.n}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+
+      <CtaBand heading="Ready to talk about your land?" />
     </>
   );
 }

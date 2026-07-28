@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { X, Phone, Mail, MapPin } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -24,7 +23,7 @@ export function MobileNav({ isOpen, onClose, links, pathname }: MobileNavProps) 
           className="fixed inset-0 z-50 lg:hidden"
         >
           <motion.div
-            className="absolute inset-0 bg-ink/95 backdrop-blur-md"
+            className="absolute inset-0 bg-night/95 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -33,24 +32,20 @@ export function MobileNav({ isOpen, onClose, links, pathname }: MobileNavProps) 
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="absolute bottom-0 right-0 top-0 flex w-full max-w-sm flex-col bg-ink"
+            className="absolute bottom-0 right-0 top-0 flex w-full max-w-sm flex-col border-l-[3px] border-rust bg-night"
           >
-            <div className="flex items-center justify-between border-b border-white/10 p-6">
-              <div className="flex items-center gap-3">
-                <Image
-                  src="/logo.png"
-                  alt="Forest Resources Inc."
-                  width={28}
-                  height={40}
-                  className="h-10 w-auto"
-                />
-                <span className="font-display text-base font-bold text-white">
-                  FOREST RESOURCES INC.
+            <div className="flex h-[74px] items-center justify-between border-b-[3px] border-rust px-6">
+              <div className="flex flex-col gap-[3px]">
+                <span className="font-slab text-[15px] leading-none text-parch-2">
+                  FOREST RESOURCES
+                </span>
+                <span className="font-display text-[9px] uppercase tracking-[0.22em] text-dust-5">
+                  Timber &amp; Land Management
                 </span>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 text-white/70 transition-colors hover:text-white"
+                className="p-2 text-gold transition-colors hover:text-gold-hi"
                 aria-label="Close menu"
               >
                 <X size={24} />
@@ -59,7 +54,7 @@ export function MobileNav({ isOpen, onClose, links, pathname }: MobileNavProps) 
 
             <div className="flex flex-1 flex-col justify-center gap-1 px-8">
               {links.map((link, i) => {
-                const isActive =
+                const active =
                   link.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(link.href);
@@ -73,8 +68,9 @@ export function MobileNav({ isOpen, onClose, links, pathname }: MobileNavProps) 
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className={`block py-4 font-display text-3xl font-bold uppercase transition-colors ${
-                        isActive ? "text-wheat" : "text-white/80 hover:text-white"
+                      aria-current={active ? "page" : undefined}
+                      className={`block py-3.5 font-slab text-3xl uppercase transition-colors ${
+                        active ? "text-gold" : "text-parch hover:text-gold"
                       }`}
                     >
                       {link.name}
@@ -88,27 +84,33 @@ export function MobileNav({ isOpen, onClose, links, pathname }: MobileNavProps) 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="space-y-4 border-t border-white/10 p-8"
+              className="border-t border-[#2a2113] p-8"
             >
               <a
                 href="tel:2172591500"
-                className="flex items-center gap-3 text-sage transition-colors hover:text-white"
+                onClick={onClose}
+                className="mb-5 block rounded-full bg-rust py-3.5 text-center font-display text-sm font-semibold tracking-[0.07em] text-cream shadow-[0_3px_0_var(--color-rust-deep)]"
               >
-                <Phone size={16} />
-                <span className="text-sm font-medium">217-259-1500</span>
+                CALL 217-259-1500
               </a>
-              <a
-                href="mailto:perrybushue@forestresourcesinc.com"
-                className="flex items-center gap-3 text-sage transition-colors hover:text-white"
-              >
-                <Mail size={16} />
-                <span className="break-all text-sm font-medium">
-                  perrybushue@forestresourcesinc.com
-                </span>
-              </a>
-              <div className="flex items-center gap-3 text-sage/70">
-                <MapPin size={16} />
-                <span className="text-sm">Shumway, IL · Effingham County</span>
+              <div className="space-y-3.5">
+                <a
+                  href="mailto:perrybushue@forestresourcesinc.com"
+                  className="flex items-center gap-3 text-dust-2 transition-colors hover:text-gold"
+                >
+                  <Mail size={16} className="shrink-0" />
+                  <span className="break-all text-sm">
+                    perrybushue@forestresourcesinc.com
+                  </span>
+                </a>
+                <div className="flex items-center gap-3 text-dust-5">
+                  <MapPin size={16} className="shrink-0" />
+                  <span className="text-sm">Shumway, IL · Effingham County</span>
+                </div>
+                <div className="flex items-center gap-3 text-dust-5">
+                  <Phone size={16} className="shrink-0" />
+                  <span className="text-sm">Mon–Fri, 8–5</span>
+                </div>
               </div>
             </motion.div>
           </motion.nav>

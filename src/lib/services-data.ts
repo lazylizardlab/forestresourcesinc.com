@@ -1,422 +1,469 @@
 import { ServiceDetail } from "@/types";
 
+/**
+ * The eight services, in display order. `slug` values are live indexed URLs —
+ * renaming one needs a permanent redirect in next.config.ts (see
+ * /services/food-plots → /services/food-plots-crp-seeding).
+ */
 export const servicesData: ServiceDetail[] = [
   {
     id: "1",
+    n: "01",
     title: "Forest Stewardship Plans",
     slug: "forest-stewardship-plans",
-    description:
-      "Comprehensive management strategies designed to guide landowners in achieving their objectives while ensuring ecological sustainability.",
-    iconName: "TreePine",
-    subtitle: "What is a Forest Stewardship Plan?",
-    fullDescription:
-      "A Forest Stewardship Plan is a comprehensive management strategy designed to guide landowners in achieving their objectives for their forest property, while ensuring ecological sustainability and improving the overall health and productivity of the land. This strategic plan is customized to the unique characteristics of the property and the specific goals of the owner, whether they involve timber production, wildlife habitat enhancement, recreation, or conservation.",
     image: "/images/tree.jpg",
-    howItWorks: [
+    blurb: "Long-term plans built around your land and your goals.",
+    summary:
+      "A written, long-term roadmap for your property built around your goals — timber income, wildlife, recreation, or just healthy woods. Plans can qualify your land for reduced property-tax assessment and cost-share programs.",
+    tags: ["Property walk-through", "Tax-program eligibility", "Year-by-year plan"],
+    hook: "The document that tells you what you've got, what it's worth, and what to do about it — for the next twenty years.",
+    full: "A Forest Stewardship Plan is a comprehensive management strategy built to help you reach your objectives for your property while keeping it ecologically sound and productive. It's customized to the land you actually own and the goals you actually have — timber production, wildlife habitat, recreation, or conservation.",
+    steps: [
       {
-        title: "Consultation and Objectives Setting",
-        description:
-          "The process begins with an initial consultation where the forestry consultant meets with the landowner to discuss their vision, goals, and objectives for the property. This step is crucial for aligning the plan with the owner's long-term desires for their land.",
+        title: "We walk it together",
+        body: "Perry meets you on the property to talk through what you want out of it. Income? Deer? Somewhere the grandkids can hunt in 2050? That conversation sets everything else.",
       },
       {
-        title: "Property Assessment",
-        description:
-          "The consultant conducts a thorough assessment of the forested property, examining factors such as species composition, soil types, water resources, existing wildlife habitats, and any areas of concern like signs of disease or pest infestation. This assessment also includes understanding the current use and any regulatory constraints.",
+        title: "Property assessment",
+        body: "Species composition, soil types, water, existing habitat, disease and pest pressure, current use and any regulatory constraints. The honest inventory of what's out there.",
       },
       {
-        title: "Plan Development",
-        description:
-          "Using the information gathered, the consultant drafts a Forest Stewardship Plan. This document typically includes:",
-        subItems: [
-          "Management Goals: Clearly defined and prioritized based on the landowner's objectives.",
-          "Resource Inventory: A detailed description of the forest resources present on the property.",
-          "Management Recommendations: Practical steps and practices recommended to meet the established goals. This could involve timber harvesting methods, reforestation, habitat improvements, and more.",
-          "Action Plan and Timelines: A schedule for implementing the management practices, including short and long-term actions.",
-          "Monitoring and Adjustments: Methods for monitoring progress and adjusting strategies as needed to respond to changing conditions or objectives.",
-        ],
+        title: "The plan gets written",
+        body: "A real document you can hand to the county, a buyer, or your kids: management goals, resource inventory, recommendations, action plans and timelines, and how to monitor and adjust.",
       },
       {
-        title: "Implementation Guidance",
-        description:
-          "Once the plan is approved by the landowner, the consultant can assist in the implementation, helping coordinate activities, sourcing contractors, and ensuring adherence to the plan's guidelines.",
+        title: "Getting it done",
+        body: "Once you approve it, we help you actually execute — coordinating activities, sourcing contractors, and making sure the work matches the plan.",
       },
       {
-        title: "Ongoing Support and Evaluation",
-        description:
-          "The consultant provides ongoing support to the landowner, helping to assess the effectiveness of the management activities and making necessary adjustments to the plan over time.",
+        title: "We stick around",
+        body: "Ongoing support to check whether it's working and adjust the plan over time. Woods change. So should the plan.",
       },
     ],
     benefits: [
-      "Sustainable Management: Ensures that forest resources are managed in a way that maintains or enhances the environmental health and productivity of the land over the long term.",
-      "Economic Benefits: Helps maximize the economic returns from the land through proper management practices, whether through timber production, recreational activities, or other uses.",
-      "Compliance and Funding Opportunities: A well-prepared plan can help landowners comply with local, state, and federal regulations, and may qualify them for financial assistance or grant programs aimed at promoting sustainable forestry practices.",
-      "Wildlife and Biodiversity: Supports efforts to protect and enhance wildlife habitats and biodiversity on the property.",
-      "Legacy and Conservation: Assists landowners in leaving a lasting legacy of well-managed, healthy forest that can continue to provide ecological and economic benefits for generations.",
+      {
+        head: "Sustainable management",
+        body: "Keeps the health and productivity of the land intact over the long term.",
+      },
+      {
+        head: "Real economic return",
+        body: "Maximizes what the land gives back — timber, recreation, or other uses.",
+      },
+      {
+        head: "Compliance & funding",
+        body: "Can qualify you for cost-share programs and reduced property-tax assessment.",
+      },
+      {
+        head: "Wildlife & biodiversity",
+        body: "Protects and improves habitat right alongside the timber work.",
+      },
+      {
+        head: "Something to leave behind",
+        body: "A well-managed woods keeps giving long after you're done managing it. That's the whole point.",
+      },
     ],
   },
   {
     id: "2",
+    n: "02",
     title: "Tree Planting",
     slug: "tree-planting",
-    description:
-      "Professional tree planting services for reforestation, habitat restoration, and timber production.",
-    iconName: "Sprout",
-    subtitle: "Tree Planting",
-    fullDescription:
-      "Tree planting refers to the process of transplanting tree seedlings to restore, enhance, or create woodland and forest areas. This essential service is not only about beautifying landscapes but also plays a crucial role in habitat restoration, improving biodiversity, and contributing to the overall ecological health of an area. Tree planting can be done for various purposes, including timber production, erosion control, restoration of native species, and enhancement of wildlife habitat.",
     image: "/images/tree-planting.jpg",
-    howItWorks: [
+    blurb: "Native Illinois hardwoods and conifers, planted to survive.",
+    summary:
+      "Reforestation and new stand establishment with native Illinois hardwoods and conifers. We handle site prep, species selection, planting, and early survival so your investment actually takes hold.",
+    tags: ["Site preparation", "Native species", "Survival follow-up"],
+    hook: "Anybody can stick a seedling in the ground. Getting it to still be there in five years is the job.",
+    full: "Tree planting is the process of transplanting seedlings to restore, enhance, or create woodland. It's not just about how the place looks — it drives habitat restoration, biodiversity, and the long-term ecological health of the ground. We plant for timber production, erosion control, native species restoration, and wildlife habitat.",
+    steps: [
       {
-        title: "Site Assessment and Planning",
-        description:
-          "The initial step involves a detailed assessment of the site where trees are to be planted. This includes analyzing soil type, climate conditions, existing vegetation, and the specific environmental needs of the area. The forestry consultant evaluates these factors to determine the best species to plant, the optimal planting layout, and the right time of year for planting.",
+        title: "Site assessment and planning",
+        body: "Soil type, climate, existing vegetation, and what the site actually needs. That determines the best species, the planting layout, and the right time of year to go in.",
       },
       {
-        title: "Selection of Tree Species",
-        description:
-          "Based on the assessment, specific tree species are selected to meet the landowner's goals and the ecological requirements of the area. The choice of species is critical and takes into account factors such as growth rate, suitability to local conditions, resistance to pests and diseases, and the ecological benefits provided.",
+        title: "Selection of species",
+        body: "Chosen against your goals and the ecology of the site — growth rate, suitability to local conditions, pest and disease resistance, and what each species gives back.",
       },
       {
-        title: "Preparation of the Planting Site",
-        description:
-          "This step may involve clearing competing vegetation, improving soil conditions, and ensuring proper drainage and soil moisture levels. Preparation is tailored to ensure the best possible start for the new trees, promoting healthy growth.",
+        title: "Preparing the site",
+        body: "Clearing competing vegetation, improving soil conditions, and making sure drainage and moisture are right. Preparation is what gives new trees a real start.",
       },
       {
-        title: "Tree Planting",
-        description:
-          "The actual planting of trees is done methodically and carefully to ensure high survival rates. Techniques vary depending on the terrain, type of tree, and specific environmental conditions. Planting can be done manually or mechanized, depending on the scale of the project.",
+        title: "Planting",
+        body: "Done methodically for high survival rates. Technique varies with terrain, species, and conditions — by hand or mechanized, depending on scale.",
       },
       {
-        title: "Post-Planting Care and Maintenance",
-        description:
-          "After planting, trees need care and maintenance, especially during the critical early stages of growth. This includes watering, mulching, protection from pests and diseases, and possibly thinning or pruning as the trees grow.",
+        title: "Post-planting care",
+        body: "The early years matter most: watering, mulching, protection from pests and disease, and thinning or pruning as the stand comes on.",
       },
       {
-        title: "Monitoring and Management",
-        description:
-          "Regular monitoring helps assess the health and growth of the planted trees and the success of the planting project. Adjustments in care and management practices are made as necessary to ensure the long-term success of the plantation.",
+        title: "Monitoring",
+        body: "Regular checks on health, growth, and survival, with adjustments to care where the stand needs it.",
       },
     ],
     benefits: [
-      "Environmental Conservation: Tree planting helps in restoring degraded areas, conserving soil, managing water runoff, and contributing to carbon sequestration efforts.",
-      "Economic Benefits: Properly managed forests from tree planting can provide significant economic returns through timber production, non-timber products, and enhanced land values.",
-      "Habitat Improvement: Strategically planted trees create and enhance habitats for various wildlife species, supporting biodiversity and ecosystem balance.",
-      "Aesthetic and Recreational Value: A well-planned tree plantation can enhance the aesthetic value of a landscape, making it suitable for recreational activities.",
-      "Compliance with Environmental Policies: In some regions, tree planting is part of regulatory requirements for environmental conservation, particularly in development projects or in sectors that impact natural resources.",
+      {
+        head: "Environmental conservation",
+        body: "Restores degraded ground, conserves soil, manages runoff, and sequesters carbon.",
+      },
+      {
+        head: "Economic return",
+        body: "Well-managed plantings pay back through timber, non-timber products, and land value.",
+      },
+      {
+        head: "Habitat improvement",
+        body: "Strategically planted trees create and improve habitat for a range of wildlife.",
+      },
+      {
+        head: "Recreational value",
+        body: "A well-planned planting makes the place better to be on, not just better on paper.",
+      },
     ],
-    specialFeature: {
-      title: "Tree Planting with a Mechanical Tree Planter",
-      description:
-        "Mechanical tree planters offer a streamlined approach to tree planting, ensuring uniform spacing and depth for each seedling. Their straightforward design enables rapid coverage of large areas, reducing the time and labor needed for planting. Whether on flat terrain or rugged landscapes, mechanical tree planters provide a reliable solution for reforestation efforts. By simplifying the planting process and promoting the establishment of healthy forests, these planters contribute to environmental sustainability and ecosystem restoration.",
+    feature: {
+      title: "Planting with a mechanical tree planter",
+      body: "Mechanical planters give uniform spacing and depth for every seedling, and cover large areas fast — a lot less time and labor than hand planting. Flat ground or rough, they're a reliable way to get a stand established and growing.",
     },
   },
   {
     id: "3",
+    n: "03",
     title: "Wildlife Enhancement",
     slug: "wildlife-enhancement",
-    description:
-      "Strategic interventions to improve habitat conditions for specific wildlife species and increase biodiversity.",
-    iconName: "Leaf",
-    subtitle: "What is Wildlife Enhancement?",
     image: "/images/deer-plot.jpg",
-    fullDescription:
-      "Wildlife Enhancement involves strategic interventions aimed at improving habitat conditions for specific wildlife species, increasing biodiversity, and enhancing the overall ecological balance of an area. This service is essential for landowners interested in wildlife conservation, hunting, photography, or simply increasing the natural value of their land. Enhancements can include the creation of food plots, installation of nesting structures, controlled burns to improve habitat quality, and the restoration of natural water sources.",
-    howItWorks: [
+    blurb: "Habitat work for deer, turkey, and songbirds.",
+    summary:
+      "Practical habitat improvements that bring more deer, turkey, and songbirds to your land. From edge feathering to mast trees to water sources, we shape the property around the wildlife you want to see.",
+    tags: ["Edge & cover work", "Mast trees", "Habitat planning"],
+    hook: "You can't make deer appear. You can make your place the best forty acres around.",
+    full: "Wildlife enhancement is strategic work to improve habitat conditions for specific species, increase biodiversity, and get the ecological balance of a property back where it should be. Food plots, nesting structures, controlled burns, restored water sources — whatever the ground actually needs.",
+    steps: [
       {
-        title: "Wildlife Assessment",
-        description:
-          "The process begins with a thorough wildlife assessment to identify the current species present, their habitat needs, and the potential for biodiversity improvement. This assessment includes evaluating the land's existing conditions, such as vegetation types, water sources, and terrain features.",
+        title: "Wildlife assessment",
+        body: "What's using the property now, what they need, and where the room for improvement is. Vegetation types, water sources, terrain features.",
       },
       {
-        title: "Goal Setting",
-        description:
-          "In consultation with the landowner, the forestry consultant helps set clear and achievable wildlife enhancement goals. These goals are based on the landowner's interests (such as attracting certain game species or promoting native flora and fauna) and the ecological needs of the area.",
+        title: "Goal setting",
+        body: "We set clear, achievable targets with you — whether that's attracting specific game species or promoting native flora and fauna.",
       },
       {
-        title: "Designing the Enhancement Plan",
-        description:
-          "Based on the assessment and goals, the consultant designs a detailed enhancement plan. This plan may include:",
-        subItems: [
-          "Habitat Modification: Adjusting forest canopy through selective thinning to promote undergrowth, creating brush piles for small mammal and bird habitat, or restoring wetlands to support amphibian and aquatic species.",
-          "Food Plots: Establishing or improving food plots to attract and sustain wildlife, particularly game species. This involves selecting the right mix of crops or natural vegetation that benefits the target species.",
-          "Water Management: Enhancing existing water sources or creating new ones to support wildlife, such as ponds, streams, or waterholes.",
-          "Installation of Nesting and Roosting Structures: Placing structures like birdhouses, bat boxes, and platforms to support breeding and roosting for various species.",
-        ],
+        title: "Designing the plan",
+        body: "Habitat modification, food plots, water management, and nesting or roosting structures — matched to the species you're after.",
       },
       {
         title: "Implementation",
-        description:
-          "The consultant coordinates the implementation of the enhancement plan, ensuring that all activities are carried out with minimal disturbance to the land and existing wildlife. This might involve working with other wildlife experts or ecological contractors.",
+        body: "Carried out with minimal disturbance to the land and the wildlife already using it, working with other specialists where it helps.",
       },
       {
-        title: "Monitoring and Adjustments",
-        description:
-          "After implementation, ongoing monitoring is essential to evaluate the effectiveness of the enhancement measures. The consultant regularly checks on the progress, assessing wildlife usage of the new habitats and making adjustments to the plan as needed.",
+        title: "Monitoring and adjustments",
+        body: "We check how the new habitat is actually being used and adjust where it isn't performing.",
       },
     ],
     benefits: [
-      "Biodiversity Conservation: Enhances the ecological diversity of the area by providing habitats that support a wide range of wildlife species.",
-      "Recreational Opportunities: Improves the quality of hunting, bird-watching, and wildlife photography opportunities, adding recreational value to the property.",
-      "Environmental Stewardship: Demonstrates a commitment to environmental stewardship and responsible land management.",
-      "Regulatory Compliance and Funding: In some cases, enhancing wildlife habitats can help meet environmental regulations and qualify for government grants or subsidies.",
-      "Long-term Land Value: By enhancing the ecological health of the land, these services can also increase its long-term value and appeal.",
+      {
+        head: "Biodiversity",
+        body: "Supports a wider range of species by giving them the habitat they need.",
+      },
+      {
+        head: "Better hunting",
+        body: "Improves hunting, bird-watching, and photography — real recreational value.",
+      },
+      {
+        head: "Stewardship",
+        body: "Shows a genuine commitment to responsible land management.",
+      },
+      {
+        head: "Long-term land value",
+        body: "Healthier ground is worth more, and appeals to more buyers if you ever sell.",
+      },
     ],
   },
   {
     id: "4",
+    n: "04",
     title: "Food Plots & CRP Seeding",
     slug: "food-plots-crp-seeding",
-    description:
-      "Food plots for wildlife and CRP seeding services including cool season grasses, waterways, native grasses, and pollinator programs.",
-    iconName: "Apple",
-    subtitle: "Food Plots & CRP Seeding",
-    fullDescription:
-      "Food plots are designated areas cultivated to grow specific types of vegetation that provide food and nutritional support to wildlife, particularly game species such as deer, turkey, and waterfowl. These plots play a critical role in wildlife management and conservation, enhancing the habitat to attract and sustain a healthy wildlife population. They can also be integral for landowners interested in hunting, wildlife observation, or photography. We also provide CRP seeding services — including cool season grasses, waterways, native grasses, and pollinator programs. Food plots can be incorporated into CRP plantings or established as standalone projects depending on your goals.",
     image: "/images/tractor.jpg",
-    howItWorks: [
+    blurb: "Seed mixes matched to your soil and your goals.",
+    summary:
+      "Seeding and food plots for both wildlife and conservation acres. We match seed mixes to your soil and your goals, and handle establishment from ground prep to drilling.",
+    tags: ["Custom seed mixes", "Ground prep", "CRP-compliant"],
+    hook: "Feed them and they stay. Simple as that — provided the mix is right for your dirt.",
+    full: "Food plots are areas cultivated to grow specific vegetation that feeds wildlife, particularly deer, turkey, and waterfowl. They're central to wildlife management, and to anybody hunting or watching game on their own ground. We also handle CRP seeding — cool season grasses, waterways, native grasses, and pollinator programs — as part of a planting or on its own.",
+    steps: [
       {
-        title: "Site Selection and Assessment",
-        description:
-          "The process begins with selecting the appropriate site for the food plot based on soil quality, sunlight exposure, proximity to natural wildlife corridors, and existing vegetation. The land is assessed to determine what enhancements are needed to optimize conditions for the selected crops and the target wildlife species.",
+        title: "Site selection",
+        body: "Soil quality, sunlight, proximity to natural corridors, and existing vegetation determine where a plot works and what it needs.",
       },
       {
-        title: "Planning and Design",
-        description:
-          "The forestry consultant works with the landowner to design a food plot that aligns with their goals, such as attracting specific game species or enhancing overall biodiversity. This includes deciding the size of the plot, types of plants to be sown (annuals or perennials), and the layout that best suits the land and wildlife patterns.",
+        title: "Planning and design",
+        body: "Plot size, annuals or perennials, and a layout that fits the land and the way wildlife already move through it.",
       },
       {
-        title: "Soil Preparation and Planting",
-        description:
-          "Soil preparation is crucial and may involve liming, fertilizing, and tilling to create the optimal growing conditions. Planting is timed based on the species' specific needs and local climate conditions to maximize growth and utility for wildlife.",
+        title: "Soil prep and planting",
+        body: "Liming, fertilizing, and tilling to get growing conditions right, with planting timed to the species and the local season.",
       },
       {
         title: "Maintenance",
-        description:
-          "Once the plot is established, ongoing maintenance is necessary to ensure it remains effective. This includes managing weeds, re-seeding or planting as necessary, and possibly additional fertilizing to keep the plants healthy and attractive to wildlife.",
+        body: "Weed management, re-seeding, and additional fertilizing to keep the plot productive and attractive.",
       },
       {
-        title: "Monitoring and Adjustment",
-        description:
-          "Regular monitoring helps evaluate the success of the food plots in attracting and supporting wildlife. The consultant checks for signs of wildlife usage and plant health, making adjustments to the strategy as necessary to improve efficacy.",
+        title: "Monitoring",
+        body: "Checking use and plant health, and adjusting the mix or the management where it isn't working.",
       },
     ],
     benefits: [
-      "Wildlife Attraction and Nutrition: Food plots provide essential nutrients to wildlife, which might not be available in sufficient quantities in their natural habitats. This is particularly important in areas with high wildlife populations or limited natural food sources.",
-      "Hunting and Wildlife Observation: For properties used for hunting or wildlife observation, food plots can significantly enhance the quantity and quality of wildlife interactions.",
-      "Conservation and Habitat Management: Strategically placed and well-managed food plots contribute to wildlife conservation efforts by supporting robust and diverse animal populations.",
-      "Land and Environmental Stewardship: Implementing food plots is a proactive approach to land management that demonstrates a commitment to sustainable practices and wildlife conservation.",
+      {
+        head: "Nutrition wildlife lacks",
+        body: "Provides what natural forage often can't, especially where populations are high.",
+      },
+      {
+        head: "Better hunting",
+        body: "Significantly improves the quantity and quality of wildlife on the property.",
+      },
+      {
+        head: "Conservation",
+        body: "Well-placed plots support robust, diverse animal populations.",
+      },
+      {
+        head: "Good stewardship",
+        body: "A proactive, sustainable approach to managing the ground you own.",
+      },
     ],
-    specialFeature: {
-      title: "CRP Seeding Programs",
-      description:
-        "In addition to wildlife food plots, we offer CRP seeding services tailored to Conservation Reserve Program requirements. Our CRP seeding includes cool season grasses, waterway establishment, native grass plantings, and pollinator habitat programs. Whether you need food plots incorporated into a CRP planting or a standalone food plot project, we can design and install the right solution for your property and goals.",
+    feature: {
+      title: "CRP seeding programs",
+      body: "Beyond wildlife plots we handle CRP seeding to program requirements: cool season grasses, waterway establishment, native grass plantings, and pollinator habitat. Whether you need plots incorporated into a CRP planting or a standalone project, we'll design and install the right thing for your property.",
     },
   },
   {
     id: "5",
+    n: "05",
     title: "Timber Appraisals & Sales",
     slug: "timber-appraisals-sales",
-    description:
-      "Professional valuation and marketing of standing timber to maximize financial returns.",
-    iconName: "TrendingUp",
-    subtitle: "Timber Appraisals/Sales",
     image: "/images/logging.jpg",
-    fullDescription:
-      "Timber appraisals and sales involve the valuation of standing timber (also known as timber cruising) to estimate its market value and the subsequent sale of that timber under optimal conditions. This service is crucial for landowners looking to generate income from their forested properties, manage their timber resources sustainably, and understand the financial aspects of their forest assets.",
-    howItWorks: [
+    blurb: "Know the number before you sign anything.",
+    summary:
+      "Know what your timber is worth before you sell. We appraise honestly and run the sale start to finish — marking, bidding, contracts — so you get fair value and your land is left in good shape.",
+    tags: ["Independent appraisal", "Marked & bid", "Contract oversight"],
+    hook: "The worst timber deals get signed by people who never found out what they had.",
+    full: "Timber appraisal and sales means valuing standing timber — cruising it — to estimate market value, then selling it under the best conditions available. It matters if you want income from forested ground, want to manage your timber sustainably, and want to actually understand the financial side of what you own.",
+    steps: [
       {
-        title: "Inventory and Assessment",
-        description:
-          "The process begins with a comprehensive inventory of the forest. This assessment includes measuring tree sizes, species identification, and health assessment to gauge volume and quality of the timber. Advanced tools and methods, such as aerial imagery or laser scanning, may be used to aid in this phase.",
+        title: "Inventory and assessment",
+        body: "Measuring tree sizes, identifying species, and assessing health to gauge the volume and quality of what's standing.",
       },
       {
         title: "Valuation",
-        description:
-          "Once the inventory is complete, the forestry consultant uses current market data along with the timber's species, size, quality, and accessibility to calculate its value. This appraisal considers local and regional market trends, as well as factors like demand fluctuations for different types of wood products.",
+        body: "Current market data against species, size, quality, and accessibility — including local and regional demand for different wood products.",
       },
       {
-        title: "Management Recommendations",
-        description:
-          "Based on the appraisal, the consultant provides recommendations on whether to sell immediately or wait for better market conditions, which parts of the forest to harvest, and what sustainable forestry practices to follow to ensure long-term productivity and health of the forest.",
+        title: "Recommendations",
+        body: "Whether to sell now or wait for better conditions, which parts of the woods to harvest, and what practices keep the stand productive after.",
       },
       {
-        title: "Marketing and Sale",
-        description:
-          "If a decision to sell is made, the consultant can assist in marketing the timber to potential buyers, such as mills, wood product companies, and private contractors. They help prepare bidding documents, manage the bidding process, and negotiate terms to secure the best possible deal for the landowner.",
+        title: "Marketing and sale",
+        body: "Taking it to mills, wood product companies, and contractors. We prepare bid documents, run the bidding, and negotiate terms.",
       },
       {
-        title: "Harvesting Coordination",
-        description:
-          "The consultant may also oversee the harvesting process to ensure that it is done sustainably and in accordance with agreed-upon practices and legal requirements. This includes monitoring the activities to minimize environmental impact and ensure compliance with forestry standards.",
+        title: "Harvest oversight",
+        body: "Overseeing the harvest so it's done sustainably and to the agreed practices, minimizing impact and staying inside forestry standards.",
       },
       {
-        title: "Post-Harvest Management",
-        description:
-          "After the sale and harvest, the consultant advises on any necessary reforestation, land rehabilitation, and future management practices to maintain the health and productivity of the forest.",
+        title: "After the harvest",
+        body: "Advice on reforestation, land rehabilitation, and the management that keeps the woods healthy going forward.",
       },
     ],
     benefits: [
-      "Maximize Financial Returns: Professional appraisal and sales services ensure that landowners receive fair market value for their timber, maximizing financial returns.",
-      "Sustainable Management: Expert guidance helps maintain or enhance the forest's health and sustainability, ensuring that timber resources are not depleted and environmental integrity is preserved.",
-      "Regulatory Compliance: Forestry consultants are knowledgeable about local, state, and federal regulations, helping landowners navigate legal requirements and avoid potential fines or penalties.",
-      "Market Insights: Consultants provide valuable insights into market trends and timber demand, which can significantly influence the timing and strategy for selling timber.",
-      "Long-term Forest Planning: These services are often part of broader forest management plans that consider long-term goals such as wildlife habitat improvement, recreational use, and conservation.",
+      {
+        head: "Fair market value",
+        body: "Professional appraisal and sale management means you get what the timber is actually worth.",
+      },
+      {
+        head: "Sustainable management",
+        body: "The stand stays healthy — resources aren't depleted and the ground isn't wrecked.",
+      },
+      {
+        head: "Regulatory compliance",
+        body: "We know the local, state, and federal requirements and keep you clear of them.",
+      },
+      {
+        head: "Market insight",
+        body: "Timing matters. We tell you when to sell and when to hold.",
+      },
     ],
   },
   {
     id: "6",
+    n: "06",
     title: "Forest Stand Improvement",
     slug: "forest-stand-improvement",
-    description:
-      "Selective tree removal to improve health, growth rate, and quality of remaining trees.",
-    iconName: "Scissors",
-    subtitle: "What is Forest Stand Improvement?",
     image: "/images/timber-stand.jpg",
-    fullDescription:
-      "Forest Stand Improvement (FSI), also known as Timber Stand Improvement (TSI), involves selectively removing trees from a forest to improve the health, growth rate, and quality of the remaining trees. This management practice is essential for enhancing timber value, reducing competition for resources (such as light, water, and nutrients), preventing disease spread, and increasing biodiversity by creating a more varied structure within the forest.",
-    howItWorks: [
+    blurb: "Thin the junk so the good trees can run.",
+    summary:
+      "Targeted thinning and TSI that removes low-value, competing trees so your best timber grows faster and healthier. Good for wood value and good for wildlife.",
+    tags: ["Thinning", "Crop-tree release", "TSI"],
+    hook: "Every tree you take out is light, water, and room for a better one.",
+    full: "Forest Stand Improvement — also called Timber Stand Improvement — is selectively removing trees to improve the health, growth rate, and quality of the ones that remain. It raises timber value, cuts competition for light, water, and nutrients, slows disease spread, and creates a more varied structure across the stand.",
+    steps: [
       {
-        title: "Assessment of Forest Condition",
-        description:
-          "The process begins with a detailed evaluation of the forest stand. This assessment includes analyzing the density, health, species composition, and age distribution of the trees. The consultant identifies which trees are underperforming or diseased and determines how thinning can best improve the stand.",
+        title: "Assessment of the stand",
+        body: "Density, health, species composition, and age distribution, with the underperforming and diseased trees identified.",
       },
       {
-        title: "Planning and Goal Setting",
-        description:
-          "Working closely with the landowner, the consultant sets specific goals for the thinning operation. These goals may include improving timber quality for future harvests, enhancing wildlife habitat, reducing wildfire risk, or increasing overall forest health and resilience.",
+        title: "Planning and goals",
+        body: "Better timber quality for future harvests, improved habitat, reduced fire risk, or overall stand health and resilience — usually some of each.",
       },
       {
-        title: "Development of a Thinning Plan",
-        description:
-          "Based on the assessment and goals, a thinning plan is drafted. This plan specifies which trees should be removed (marked for thinning) and the method of thinning to be used. Thinning methods vary depending on the forest type and include options such as selective thinning, row thinning, or crown thinning.",
+        title: "Thinning plan",
+        body: "Which trees come out and by what method: selective thinning, row thinning, or crown thinning, depending on the forest type.",
       },
       {
-        title: "Implementation of Thinning Operations",
-        description:
-          "The thinning operation is carried out under the guidance of the forestry consultant, ensuring that the work is done according to the plan and with minimal impact on the environment. This phase often involves the use of professional loggers or forestry workers trained in low-impact thinning techniques.",
+        title: "Implementation",
+        body: "Carried out under supervision, to plan, with low-impact techniques and crews trained for it.",
       },
       {
-        title: "Monitoring and Post-Thinning Management",
-        description:
-          "After thinning, the forest stand is monitored to assess the effects of the intervention on forest health and growth. The consultant may recommend additional management practices such as pest management, fertilization, or further thinning in the future to continue improving the stand's condition.",
+        title: "Post-thinning management",
+        body: "Monitoring the effect on health and growth, with pest management, fertilization, or further thinning where it's warranted.",
       },
     ],
     benefits: [
-      "Enhanced Tree Health and Growth: Thinning reduces competition, allowing remaining trees more access to sunlight, water, and nutrients, which improves their growth and vitality.",
-      "Increased Timber Value: By focusing resources on the best-quality trees and removing inferior specimens, thinning can significantly increase the economic value of future timber harvests.",
-      "Reduced Risk of Disease and Pests: Overcrowded stands are more susceptible to disease and pest infestations. Thinning helps to reduce these risks by improving air circulation and reducing humidity within the stand.",
-      "Improved Wildlife Habitat: Thinning can create a more diverse habitat with varying tree sizes and species, which is beneficial for wildlife.",
-      "Fire Risk Mitigation: By removing excess biomass, thinning reduces fuel loads in the forest, thereby decreasing the intensity and spread of wildfires.",
+      {
+        head: "Healthier, faster growth",
+        body: "Less competition means more sunlight, water, and nutrients for the trees you keep.",
+      },
+      {
+        head: "Higher timber value",
+        body: "Concentrating resources on the best stems substantially raises what the next harvest is worth.",
+      },
+      {
+        head: "Less disease and pests",
+        body: "Better air circulation and lower humidity in the stand cut infestation risk.",
+      },
+      {
+        head: "Better habitat",
+        body: "Varied tree sizes and species make for more usable habitat.",
+      },
     ],
-    specialFeature: {
-      title: "Thinning Trees",
-      description:
-        "Selectively removing trees creates space for remaining trees to thrive and promotes species diversity. Thinning improves timber quality by encouraging the growth of larger, more valuable trees with straighter stems and fewer defects. Overall, forest stand improvement supports sustainable forest management practices, ensuring the long-term health and productivity of forest ecosystems for both wildlife and timber production.",
+    feature: {
+      title: "Thinning trees",
+      body: "Selective removal makes room for the remaining trees to thrive and promotes species diversity. It improves timber quality by encouraging larger, more valuable trees with straighter stems and fewer defects — sustainable management that pays off for wildlife and wood alike.",
     },
   },
   {
     id: "7",
+    n: "07",
     title: "CRP Management",
     slug: "crp-management",
-    description:
-      "Mowing, clearing, and spraying services for Conservation Reserve Program enrolled lands.",
-    iconName: "Tractor",
-    subtitle: "CRP Mowing, Clearing, & Spraying",
     image: "/images/crp-manage.jpg",
-    fullDescription:
-      "CRP (Conservation Reserve Program) Mowing, Clearing, and Spraying are management practices used to maintain and improve lands enrolled in the Conservation Reserve Program, a land conservation program administered by the Farm Service Agency (FSA) in the United States. These practices are essential for ensuring the environmental benefits of the CRP are realized by controlling invasive species, promoting desirable vegetation, and maintaining healthy habitats for wildlife.",
-    howItWorks: [
+    blurb: "Mowing, burning, and upkeep — on schedule, in compliance.",
+    summary:
+      "Keep your Conservation Reserve Program acres in compliance and in good condition. We handle the required mid-contract management — mowing, prescribed burning, maintenance — on schedule.",
+    tags: ["Mowing", "Prescribed burns", "Compliance upkeep"],
+    hook: "Miss the mid-contract management and you can lose the payments. We keep the calendar.",
+    full: "CRP mowing, clearing, and spraying are the management practices that maintain and improve land enrolled in the Conservation Reserve Program. They're what make sure the environmental benefit actually happens — controlling invasives, promoting desirable vegetation, and keeping habitat healthy — and what keeps you compliant with the FSA.",
+    steps: [
       {
-        title: "CRP Management Planning",
-        description:
-          "The process begins with a thorough review of the CRP management plan specific to the landowner's contract. This plan outlines the required practices, frequency, and timing of mowing, clearing, and spraying activities to comply with CRP regulations and to achieve the conservation goals.",
+        title: "Management planning",
+        body: "A review of your specific CRP contract: required practices, frequency, and the timing that keeps you compliant and meets the conservation goals.",
       },
       {
-        title: "Site Assessment",
-        description:
-          "Before any action is taken, the site is assessed to identify the current conditions, presence of invasive species, status of desirable vegetation, and any particular areas of concern such as erosion or pest infestation.",
+        title: "Site assessment",
+        body: "Current conditions, invasive presence, status of desirable vegetation, and any problem areas like erosion or pest pressure.",
       },
       {
         title: "Mowing",
-        description:
-          "Mowing is conducted as per the CRP guidelines, which typically stipulate specific times of the year for mowing to protect nesting birds and other wildlife. Mowing helps reduce woody vegetation, control invasive plants, and manage the height and density of grasses to support habitat requirements.",
+        body: "Timed to CRP guidelines — which protect nesting birds — to reduce woody vegetation, control invasives, and manage grass height and density.",
       },
       {
         title: "Clearing",
-        description:
-          "Clearing involves the removal of unwanted trees, shrubs, and debris that might impede the growth of beneficial plants or alter the habitat unfavorably. This is essential for maintaining open areas required by certain wildlife species and for promoting species diversity.",
+        body: "Removing unwanted trees, shrubs, and debris that crowd out beneficial plants or close in the open ground certain species need.",
       },
       {
         title: "Spraying",
-        description:
-          "Spraying is carefully managed to target invasive species or problematic pests while minimizing impacts on non-target species and the environment. Herbicides and pesticides are selected and applied according to environmental best practices and CRP regulations.",
+        body: "Targeted at invasives and problem pests while minimizing impact on everything else, applied to best practice and program rules.",
       },
       {
-        title: "Monitoring and Adjustments",
-        description:
-          "After implementation of these practices, the area is monitored to observe the effectiveness of the treatments. This monitoring helps in making any necessary adjustments to the management practices to better meet conservation goals and comply with CRP requirements.",
+        title: "Monitoring",
+        body: "Checking the results and adjusting the practices to better meet the goals and requirements.",
       },
     ],
     benefits: [
-      "Regulatory Compliance: Adhering to CRP requirements is crucial for maintaining program benefits, which can include annual rental payments and cost-sharing. Non-compliance can result in penalties or loss of program benefits.",
-      "Environmental Benefits: Proper management helps maintain the ecological integrity of the land, supporting soil conservation, water quality improvement, and wildlife habitat enhancement.",
-      "Invasive Species Control: Active management is essential to control invasive species that can outcompete native vegetation and alter habitats.",
-      "Promote Plant Health and Diversity: Regular mowing, clearing, and controlled spraying encourage the growth of a diverse array of plant species, which in turn supports a diverse wildlife population.",
+      {
+        head: "Keep your payments",
+        body: "Compliance protects annual rental payments and cost-share. Non-compliance can cost you both.",
+      },
+      {
+        head: "Environmental benefit",
+        body: "Maintains soil conservation, water quality, and habitat — the point of the program.",
+      },
+      {
+        head: "Invasive control",
+        body: "Active management stops invasives from outcompeting natives and altering habitat.",
+      },
+      {
+        head: "Plant diversity",
+        body: "Regular mowing, clearing, and controlled spraying encourage a wider mix of species.",
+      },
     ],
   },
   {
     id: "8",
+    n: "08",
     title: "Invasive Species Control",
     slug: "invasive-species-control",
-    description:
-      "Management and eradication of non-native species that threaten local ecosystems.",
-    iconName: "Ban",
-    subtitle: "What is Invasive Species Control?",
-    fullDescription:
-      "Invasive Species Control involves the management and eradication of non-native species that threaten local ecosystems. These species can aggressively compete with native flora and fauna, leading to reduced biodiversity, altered habitats, and disrupted ecological functions. Effective control strategies are critical to maintaining the health and sustainability of ecosystems, particularly in areas of ecological importance or sensitive habitats.",
     image: "/images/drone.jpg",
-    howItWorks: [
+    blurb: "Honeysuckle and autumn olive, hit by hand and by drone.",
+    summary:
+      "Take back your woods from bush honeysuckle, autumn olive, and the rest of the crowd that chokes out native growth. Targeted cutting and treatment — including drone application — that keeps them from coming back.",
+    tags: ["Honeysuckle removal", "Autumn olive", "Drone spraying"],
+    hook: "Honeysuckle doesn't negotiate. Neither do we.",
+    full: "Invasive species control is the management and eradication of non-native species that threaten local ecosystems. Left alone they outcompete native flora and fauna, cut biodiversity, alter habitat, and break the ecological functions the woods depend on. Getting on top of them early is far cheaper than getting on top of them late.",
+    steps: [
       {
-        title: "Identification and Assessment",
-        description:
-          "The first step in invasive species control is to accurately identify the invasive species present on the property. This involves a detailed site assessment to determine the extent of the invasion, the species involved, and the ecological impacts they are causing. This phase often includes consulting with local wildlife experts or using regional databases of invasive species.",
+        title: "Identification and assessment",
+        body: "Accurately identifying what's present, how far it's gone, and what damage it's doing — sometimes with local wildlife experts or regional invasive databases.",
       },
       {
-        title: "Strategy Development",
-        description:
-          "Based on the assessment, a targeted control strategy is developed. This strategy may involve one or a combination of mechanical, chemical, and biological control methods, depending on the specific species and the environmental context. The plan will outline methods for removal, tools and resources required, and the timeline for execution.",
+        title: "Strategy development",
+        body: "A targeted control plan combining mechanical, chemical, and biological methods as the species and site require, with methods, tools, and a timeline.",
       },
       {
-        title: "Implementation of Control Measures",
-        description:
-          "This includes mechanical control (cutting, mowing), chemical control (herbicides), and biological control (natural predators).",
-        subItems: [
-          "Mechanical Control: This includes manual removal techniques such as cutting, mowing, or pulling of invasive plants. For larger areas or more resilient species, machinery like mowers or excavators might be used.",
-          "Chemical Control: The application of herbicides or pesticides specifically formulated to target invasive species while minimizing impact on native species. Chemical treatments are carefully planned to avoid contamination of water sources and non-target areas.",
-          "Biological Control: Introducing natural predators or diseases that specifically target the invasive species can be an effective long-term control strategy. This method requires thorough research and often regulatory approval to ensure that it does not inadvertently harm the ecosystem.",
-        ],
+        title: "Implementation",
+        body: "Mechanical control by cutting, mowing, or pulling; chemical control with herbicides formulated to spare natives; biological control where research and approval support it.",
       },
       {
-        title: "Monitoring and Maintenance",
-        description:
-          "After the initial removal or treatment, ongoing monitoring is essential to detect any reoccurrence of the invasive species. Follow-up treatments or adjustments to the control methods may be necessary to ensure complete eradication or control.",
+        title: "Monitoring and maintenance",
+        body: "Ongoing checks for reoccurrence, with follow-up treatments where anything comes back.",
       },
       {
-        title: "Restoration of Native Species",
-        description:
-          "Once invasive species are controlled or removed, restoring native vegetation is often necessary to support ecosystem recovery and prevent re-invasion. This may involve reseeding or replanting native species and ongoing management to support their growth.",
+        title: "Restoring natives",
+        body: "Reseeding or replanting natives once the invasives are controlled, so the ground doesn't just get re-invaded.",
       },
     ],
     benefits: [
-      "Protect Native Biodiversity: Invasive species can outcompete, displace, or even eliminate native species, leading to a loss of biodiversity and the degradation of ecosystems.",
-      "Maintain Ecosystem Services: Healthy ecosystems provide critical services such as pollination, water filtration, and climate regulation. Controlling invasive species helps preserve these functions.",
-      "Economic Impact: Invasive species can negatively impact agricultural productivity, forestry operations, and property values. Effective control helps mitigate these economic risks.",
-      "Regulatory Compliance: In some areas, landowners are legally required to manage invasive species on their property to prevent spread to neighboring lands.",
+      {
+        head: "Protect native species",
+        body: "Invasives displace and eliminate natives, degrading the whole ecosystem.",
+      },
+      {
+        head: "Keep ecosystem services",
+        body: "Pollination, water filtration, and climate regulation all depend on healthy ground.",
+      },
+      {
+        head: "Economic impact",
+        body: "Invasives hurt agricultural productivity, forestry operations, and property values.",
+      },
+      {
+        head: "Regulatory compliance",
+        body: "In some areas you're legally required to manage invasives to stop spread onto neighboring land.",
+      },
     ],
-    specialFeature: {
-      title: "Invasive Species Control... with Drones!",
-      description:
-        "Drones are revolutionizing chemical control of invasive species, offering a precision-focused approach that reduces environmental impact. Equipped with advanced GPS and sensors, drones can accurately apply herbicides or pesticides to specific targets. This technology is particularly beneficial for accessing challenging terrains or remote areas where traditional ground crews would struggle. In addition to precision, drones provide an efficient and cost-effective method for invasive species control, covering large areas quickly. Moreover, they often come with data collection capabilities, allowing for real-time monitoring and assessment of treatment effectiveness.",
+    feature: {
+      title: "Invasive species control… with drones",
+      body: "Drones are changing chemical control: GPS and sensors let us put herbicide exactly where it's needed and nowhere else. They reach terrain a ground crew would struggle with, cover large areas fast, and collect data as they go — so we can actually see whether the treatment worked.",
     },
   },
 ];
+
+export function getService(slug: string): ServiceDetail | undefined {
+  return servicesData.find((service) => service.slug === slug);
+}

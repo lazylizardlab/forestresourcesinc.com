@@ -3,34 +3,27 @@ import { Reveal } from "@/components/ui/Reveal";
 
 interface CtaBandProps {
   heading: string;
-  copy: string;
 }
 
-/** Forest-green call-to-action band that closes the Home, Services, and About pages. */
-export function CtaBand({ heading, copy }: CtaBandProps) {
+/** Rust closing band with a diagonal hatch. Every page but Contact ends here. */
+export function CtaBand({ heading }: CtaBandProps) {
   return (
-    <section className="bg-forest text-white">
-      <Reveal className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-8 px-5 py-[62px] sm:px-8 lg:px-14">
+    <section className="texture-hatch bg-rust">
+      <Reveal className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-9 px-5 py-11 sm:px-8 lg:px-14">
         <div>
-          <h2 className="font-display text-[30px] font-bold sm:text-[40px]">
+          <h2 className="mb-2 font-slab text-[26px] uppercase leading-[1.05] text-cream sm:text-[34px]">
             {heading}
           </h2>
-          <p className="mt-2 text-[17px] text-sage-soft">{copy}</p>
+          <p className="text-base text-[#f2cdc2]">
+            Free consultation. No pressure, no upselling, no jargon.
+          </p>
         </div>
-        <div className="flex flex-wrap items-center gap-5">
-          <Link
-            href="/contact"
-            className="rounded-[3px] bg-gold px-[26px] py-4 text-[15px] font-bold text-[#23271d] transition-[transform,filter] duration-200 hover:-translate-y-px hover:brightness-105"
-          >
-            Schedule a Consultation
-          </Link>
-          <a
-            href="tel:2172591500"
-            className="font-display text-[26px] font-bold text-white"
-          >
-            217-259-1500
-          </a>
-        </div>
+        <Link
+          href="/contact"
+          className="rounded-md bg-gold px-[26px] py-4 font-display text-[15.5px] font-semibold uppercase tracking-[0.08em] text-ink shadow-[0_4px_0_var(--color-gold-deep)] transition-colors hover:bg-gold-hi"
+        >
+          Schedule a walk-through
+        </Link>
       </Reveal>
     </section>
   );

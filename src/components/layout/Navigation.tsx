@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./MobileNav";
 import { Menu } from "lucide-react";
@@ -14,59 +13,40 @@ const navLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
+function isActiveLink(href: string, pathname: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
-      <header
-        className={`sticky top-0 z-30 flex items-center justify-between border-b border-line bg-white/95 px-5 py-4 backdrop-blur-sm backdrop-saturate-150 transition-shadow duration-300 sm:px-8 lg:px-12 ${
-          isScrolled ? "shadow-[0_8px_22px_-14px_rgba(36,40,31,0.55)]" : ""
-        }`}
-      >
-        {/* Wordmark */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/logo-dark.png"
-            alt="Forest Resources Inc."
-            width={31}
-            height={44}
-            priority
-            className="h-11 w-auto -translate-y-1"
-          />
-          <span className="flex flex-col">
-            <span className="whitespace-nowrap font-display text-[15px] font-bold leading-none sm:text-[17px]">
-              FOREST RESOURCES INC.
-            </span>
-            <span className="mt-1 hidden text-[11px] font-medium text-[#7d7a6c] sm:block">
-              Timber &amp; Land Management · Shumway, IL
-            </span>
+      <header className="sticky top-0 z-50 flex h-[74px] items-center justify-between gap-6 border-b-[3px] border-rust bg-night px-5 sm:px-8 lg:px-10">
+        {/* Wordmark — set in the slab, with the Oswald descriptor beneath. */}
+        <Link href="/" className="flex flex-col gap-[3px]">
+          <span className="font-slab text-[15px] leading-none text-parch-2 sm:text-[17px]">
+            FOREST RESOURCES
+          </span>
+          <span className="font-display text-[9px] uppercase tracking-[0.22em] text-dust-5 sm:text-[10px]">
+            Timber &amp; Land Management
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-7 lg:flex">
-          <nav className="flex gap-6 text-sm font-semibold text-forest">
+        <div className="flex items-center gap-7">
+          <nav className="hidden gap-[26px] font-display text-[13.5px] uppercase tracking-[0.14em] lg:flex">
             {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+              const active = isActiveLink(link.href, pathname);
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`pb-0.5 transition-colors hover:text-amber ${
-                    isActive ? "border-b-2 border-amber" : ""
+                  aria-current={active ? "page" : undefined}
+                  className={`border-b-[3px] pb-1 transition-colors ${
+                    active
+                      ? "border-gold text-gold"
+                      : "border-transparent text-dust-2 hover:text-gold"
                   }`}
                 >
                   {link.name}
@@ -74,22 +54,22 @@ export function Navigation() {
               );
             })}
           </nav>
+
           <a
             href="tel:2172591500"
-            className="rounded-[3px] bg-forest px-[18px] py-[11px] text-sm font-bold text-white transition-[transform,filter] duration-200 hover:-translate-y-px hover:brightness-110"
+            className="hidden rounded-full bg-rust px-5 py-[11px] font-display text-sm font-semibold tracking-[0.07em] text-cream shadow-[0_3px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi hover:text-white sm:block"
           >
-            Call 217-259-1500
+            CALL 217-259-1500
           </a>
-        </div>
 
-        {/* Mobile menu button */}
-        <button
-          className="p-1.5 text-forest lg:hidden"
-          onClick={() => setIsMobileOpen(true)}
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
+          <button
+            className="p-1.5 text-gold lg:hidden"
+            onClick={() => setIsMobileOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={26} />
+          </button>
+        </div>
       </header>
 
       <MobileNav
