@@ -6,6 +6,7 @@ import { PhotoBand } from "@/components/site/PhotoBand";
 import { MapEmbed } from "@/components/site/MapEmbed";
 import { Duotone } from "@/components/site/Duotone";
 import { StatBar } from "@/components/site/StatBar";
+import { Arrow } from "@/components/ui/Arrow";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -165,7 +166,7 @@ export default function AboutPage() {
             href="/contact"
             className="inline-block border-b-2 border-rust pb-[3px] font-display text-sm font-semibold uppercase tracking-[0.1em] text-rust transition-colors hover:text-rust-dark"
           >
-            Get in touch →
+            Get in touch <Arrow />
           </Link>
         </div>
         <div className="h-[300px] overflow-hidden rounded-[14px] border-[3px] border-ink shadow-[0_6px_0_rgba(28,21,16,.28)]">

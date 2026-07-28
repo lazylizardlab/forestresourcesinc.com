@@ -5,6 +5,7 @@ import { Reveal, RevealStagger } from "@/components/ui/Reveal";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Duotone } from "@/components/site/Duotone";
 import { StatBar } from "@/components/site/StatBar";
+import { Arrow } from "@/components/ui/Arrow";
 import { servicesData } from "@/lib/services-data";
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ const routes = [
     option: "Option 01",
     head: "Make money off my timber",
     copy: "Find out what's standing out there and what it's worth before anybody cuts it.",
-    cta: "Timber appraisals & sales →",
+    cta: "Timber appraisals & sales",
     slug: "timber-appraisals-sales",
     tone: "dark" as const,
   },
@@ -41,7 +42,7 @@ const routes = [
     option: "Option 02",
     head: "See more deer & turkey",
     copy: "Food plots, edge feathering, cover and water — habitat work that actually moves game.",
-    cta: "Wildlife enhancement →",
+    cta: "Wildlife enhancement",
     slug: "wildlife-enhancement",
     tone: "dark" as const,
   },
@@ -49,7 +50,7 @@ const routes = [
     option: "Option 03",
     head: "Honestly? I have no idea",
     copy: "Perry walks the ground with you and writes down what you've got and what it could be.",
-    cta: "Forest stewardship plans →",
+    cta: "Forest stewardship plans",
     slug: "forest-stewardship-plans",
     tone: "rust" as const,
   },
@@ -111,14 +112,8 @@ export default function Home() {
                 href="/services"
                 className="rounded-md bg-rust px-7 py-4 font-display text-[15px] font-semibold uppercase tracking-[0.07em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-[transform,background-color] duration-150 hover:-translate-y-0.5 hover:bg-rust-hi sm:text-base"
               >
-                Figure out what I need →
+                Figure out what I need <Arrow />
               </Link>
-              <a
-                href="tel:2172591500"
-                className="rounded-md border-[2.5px] border-gold px-7 py-4 font-display text-[15px] font-semibold uppercase tracking-[0.07em] text-gold transition-colors hover:bg-gold hover:text-ink sm:text-base"
-              >
-                Call 217-259-1500
-              </a>
             </div>
           </div>
           {/* Sits beside the headline on desktop. Below md the grid collapses
@@ -134,7 +129,7 @@ export default function Home() {
             width={358}
             height={358}
             priority
-            className="order-first mx-auto h-auto w-[175px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:mx-0 md:order-none md:w-[32vw] md:max-w-[358px]"
+            className="order-first mx-auto h-auto w-[200px] drop-shadow-[0_16px_40px_rgba(0,0,0,.75)] sm:mx-0 md:order-none md:w-[32vw] md:max-w-[358px]"
           />
         </RevealStagger>
       </Duotone>
@@ -184,7 +179,7 @@ export default function Home() {
                   <div
                     className={`font-display text-[13.5px] font-semibold uppercase tracking-[0.09em] ${tone.link}`}
                   >
-                    {route.cta}
+                    {route.cta} <Arrow />
                   </div>
                 </Link>
               );
@@ -212,7 +207,7 @@ export default function Home() {
             href="/services"
             className="whitespace-nowrap border-b-2 border-rust pb-[3px] font-display text-sm font-semibold uppercase tracking-[0.1em] text-rust transition-colors hover:text-rust-dark"
           >
-            All services →
+            All services <Arrow />
           </Link>
         </Reveal>
 
@@ -277,7 +272,7 @@ export default function Home() {
             href="/about"
             className="self-start border-b-2 border-gold pb-[3px] font-display text-sm font-semibold uppercase tracking-[0.1em] text-gold transition-colors hover:text-gold-hi"
           >
-            Read the whole story →
+            Read the whole story <Arrow />
           </Link>
         </RevealStagger>
       </section>

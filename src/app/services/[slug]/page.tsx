@@ -7,6 +7,7 @@ import { BenefitsList } from "@/components/services/BenefitsList";
 import { CtaBand } from "@/components/site/CtaBand";
 import { Duotone } from "@/components/site/Duotone";
 import { Reveal } from "@/components/ui/Reveal";
+import { Arrow } from "@/components/ui/Arrow";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -124,7 +125,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             href="/services"
             className="mb-4 font-display text-xs uppercase tracking-[0.22em] text-gold transition-colors hover:text-gold-hi"
           >
-            ← All services &nbsp;·&nbsp; Service {service.n} of {total}
+            <Arrow dir="left" /> All services &nbsp;·&nbsp; Service {service.n} of{" "}
+            {total}
           </Link>
           <h1 className="mb-3.5 max-w-[860px] font-slab text-[32px] uppercase leading-[0.98] text-cream [text-shadow:0_3px_14px_rgba(0,0,0,.5)] sm:text-[44px] lg:text-[58px]">
             {service.title}
@@ -192,16 +194,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             {/* Carries the service through so the contact form arrives pre-tagged. */}
             <Link
               href={`/contact?service=${encodeURIComponent(service.title)}`}
-              className="mb-3 block rounded-md bg-rust py-3.5 text-center font-display text-sm font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi"
+              className="block rounded-md bg-rust py-3.5 text-center font-display text-sm font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi"
             >
               Ask about this
             </Link>
-            <a
-              href="tel:2172591500"
-              className="block text-center font-slab text-[21px] text-gold transition-colors hover:text-gold-hi"
-            >
-              217-259-1500
-            </a>
           </div>
 
           <div className="rounded-xl border-[2.5px] border-ink bg-cream-2 px-[22px] py-[22px] shadow-[0_5px_0_rgba(28,21,16,.25)]">

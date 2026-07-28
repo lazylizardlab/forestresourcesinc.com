@@ -16,22 +16,9 @@ export function Footer() {
 
   return (
     <footer className="bg-night px-5 pb-7 pt-11 text-dust-2 sm:px-8 sm:pt-[52px] lg:px-14">
-      <div className="mx-auto grid max-w-[1320px] gap-10 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
-        <div>
-          <div className="mb-4 font-slab text-[22px] leading-[1.15] text-parch-2">
-            FOREST
-            <br />
-            RESOURCES
-          </div>
-          <p className="mb-4 max-w-[280px] text-sm leading-[1.65] text-dust-5">
-            Timber and land management for Central &amp; Southern Illinois.
-            Twenty years of walking other people&apos;s woods.
-          </p>
-          <span className="inline-block rounded-full border-[1.5px] border-[#46381f] px-3.5 py-1.5 font-display text-[11px] uppercase tracking-[0.22em] text-gold">
-            Est. 2006
-          </span>
-        </div>
-
+      {/* No brand column — the header wordmark is sticky, so the footer is
+          purely wayfinding and contact. */}
+      <div className="mx-auto grid max-w-[1320px] gap-10 sm:grid-cols-2 md:grid-cols-[1fr_1fr_1.2fr]">
         <div>
           <div className={columnLabel}>Services</div>
           <div className="flex flex-col gap-2.5 text-[14.5px]">
@@ -90,9 +77,8 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-9 flex max-w-[1320px] flex-col gap-2 border-t border-[#2a2113] pt-[18px] text-[12.5px] text-[#5c5039] sm:flex-row sm:justify-between">
-        <span>© {new Date().getFullYear()} Forest Resources Inc.</span>
-        <span>Serving Central &amp; Southern Illinois</span>
+      <div className="mx-auto mt-9 max-w-[1320px] border-t border-[#2a2113] pt-[18px] text-[12.5px] text-[#5c5039]">
+        © {new Date().getFullYear()} Forest Resources Inc.
       </div>
     </footer>
   );

@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import Image from "next/image";
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Reveal, RevealStagger } from "@/components/ui/Reveal";
@@ -23,37 +22,19 @@ export default function ContactPage() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-night px-5 py-14 sm:px-8 sm:py-[54px] lg:px-14">
         <div aria-hidden className="texture-dots-gold absolute inset-0 opacity-10" />
-        <RevealStagger className="relative mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-10">
-          <div>
-            <div className="mb-5 inline-block rounded-full border-2 border-[rgba(224,163,78,.5)] px-4 py-1.5 font-display text-[11.5px] uppercase tracking-[0.24em] text-gold">
-              Get in touch
-            </div>
-            <h1 className="mb-4 font-slab text-[34px] uppercase leading-[0.98] text-cream sm:text-[46px] lg:text-[58px]">
-              Tell us about
-              <br />
-              your land.
-            </h1>
-            <p className="max-w-[560px] text-[17px] leading-[1.6] text-dust sm:text-[18px]">
-              Free consultation, no pressure. Call Perry directly, or leave a
-              note and he&apos;ll get back to you — usually the same day.
-            </p>
+        <RevealStagger className="relative mx-auto max-w-[1320px]">
+          <div className="mb-5 inline-block rounded-full border-2 border-[rgba(224,163,78,.5)] px-4 py-1.5 font-display text-[11.5px] uppercase tracking-[0.24em] text-gold">
+            Get in touch
           </div>
-          <div className="flex-none text-center">
-            <Image
-              src="/logo.png"
-              alt="Forest Resources Inc."
-              width={170}
-              height={170}
-              priority
-              className="mx-auto mb-3.5 h-auto w-[130px] drop-shadow-[0_10px_24px_rgba(0,0,0,.6)] sm:w-[170px]"
-            />
-            <a
-              href="tel:2172591500"
-              className="block font-slab text-[26px] leading-none text-gold transition-colors hover:text-gold-hi sm:text-[32px]"
-            >
-              217-259-1500
-            </a>
-          </div>
+          <h1 className="mb-4 font-slab text-[34px] uppercase leading-[0.98] text-cream sm:text-[46px] lg:text-[58px]">
+            Tell us about
+            <br />
+            your land.
+          </h1>
+          <p className="max-w-[560px] text-[17px] leading-[1.6] text-dust sm:text-[18px]">
+            Free consultation, no pressure. Call Perry directly, or leave a note
+            and he&apos;ll get back to you — usually the same day.
+          </p>
         </RevealStagger>
       </section>
 
