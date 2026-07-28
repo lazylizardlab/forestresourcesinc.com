@@ -35,14 +35,24 @@ export const metadata: Metadata = {
     title: "Forest Resources Inc. | Timber & Land Management Services",
     description:
       "Professional forestry services in Central & Southern Illinois. Expert forest stewardship, tree planting, wildlife enhancement, and timber management. 20+ years experience.",
-    images: [{ url: "/images/tree.jpg", width: 1200, height: 630 }],
+    // Purpose-built 1200x630 share card — the seal over the wordmark. A raw
+    // photo can't stand in here: every one in public/images is portrait, and
+    // scrapers crop to landscape without asking.
+    images: [
+      {
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Forest Resources Inc. — timber & land management in Central & Southern Illinois",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Forest Resources Inc. | Timber & Land Management Services",
     description:
       "Professional forestry services in Central & Southern Illinois. Expert forest stewardship, tree planting, wildlife enhancement, and timber management.",
-    images: ["/images/tree.jpg"],
+    images: ["/images/og.jpg"],
   },
   robots: { index: true, follow: true },
 };
