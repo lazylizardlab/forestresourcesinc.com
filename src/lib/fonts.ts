@@ -1,6 +1,15 @@
-import { Oswald, Public_Sans } from "next/font/google";
+import { Alfa_Slab_One, Oswald, Public_Sans } from "next/font/google";
 
-// Display / headline face — condensed, rugged. Hero statements set uppercase.
+// Headline face — a heavy slab serif. Every h1/h2/stat/number is set in this.
+export const alfaSlabOne = Alfa_Slab_One({
+  subsets: ["latin"],
+  variable: "--font-alfa",
+  display: "swap",
+  weight: ["400"],
+});
+
+// Utility face — condensed. Eyebrows, nav, buttons, labels, tags. Usually
+// uppercase with wide tracking.
 export const oswald = Oswald({
   subsets: ["latin"],
   variable: "--font-oswald",

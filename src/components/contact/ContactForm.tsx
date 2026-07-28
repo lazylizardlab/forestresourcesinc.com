@@ -1,61 +1,89 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { submitContactForm } from "@/app/actions/contact";
 
-const topics = [
-  "Forest Stewardship Plan",
-  "Timber Appraisal or Sale",
-  "Tree Planting",
-  "Wildlife / Food Plots",
-  "CRP Management",
-  "Invasive Species Control",
-  "Something else",
+/** The standing chips. A service detail page can add one via ?service=. */
+const BASE_CHIPS = [
+  "Stewardship plan",
+  "Timber sale",
+  "Wildlife / food plots",
+  "CRP",
+  "Invasives",
+  "Not sure yet",
 ];
 
 const labelClass =
-  "mb-1.5 block text-xs font-bold uppercase tracking-[0.04em] text-[#5a5a4c]";
+  "mb-[7px] block font-display text-[11.5px] uppercase tracking-[0.16em] text-body";
 const inputClass =
-  "w-full rounded-[4px] border border-[#d8d2c2] bg-[#faf9f4] px-[13px] py-3 text-[15px] outline-none transition-colors focus:border-forest";
+  "w-full rounded-lg border-[2.5px] border-ink bg-cream px-3.5 py-3 text-[15px] text-ink outline-none transition-colors placeholder:text-sand focus:border-rust";
 
 const emptyForm = {
   name: "",
   phone: "",
   email: "",
-  land: "",
-  topic: topics[0],
-  message: "",
+  county: "",
+  acres: "",
+  notes: "",
 };
 
 export function ContactForm() {
+  const searchParams = useSearchParams();
+  // "Ask about this" on a service page arrives as ?service=Tree+Planting.
+  const referred = searchParams.get("service");
+
   const [form, setForm] = useState(emptyForm);
+  const [picked, setPicked] = useState<string[]>(referred ? [referred] : []);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
+  const [sentName, setSentName] = useState("");
+
+  // Referred services aren't in the standing set, so append any extras.
+  const chips = [
+    ...BASE_CHIPS,
+    ...picked.filter((chip) => !BASE_CHIPS.includes(chip)),
+  ];
 
   const update =
     (key: keyof typeof emptyForm) =>
-    (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-      >
-    ) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const toggleChip = (label: string) =>
+    setPicked((prev) =>
+      prev.includes(label)
+        ? prev.filter((x) => x !== label)
+        : [...prev, label]
+    );
+
+  const reset = () => {
+    setForm(emptyForm);
+    setPicked([]);
+    setStatus("idle");
+  };
 
   const handleSubmit = async () => {
     setStatus("sending");
+    const land = [form.county && `${form.county} County`, form.acres && `${form.acres} ac`]
+      .filter(Boolean)
+      .join(" · ");
+
     try {
       const result = await submitContactForm({
         name: form.name,
         email: form.email,
         phone: form.phone,
-        service: form.topic,
-        land: form.land,
-        message: form.message,
+        service: picked.length ? picked.join(", ") : "Not specified",
+        land,
+        message: form.notes,
       });
       if (result.success) {
+        setSentName(form.name);
         setStatus("sent");
         setForm(emptyForm);
+        setPicked([]);
       } else {
         setStatus("error");
       }
@@ -64,49 +92,53 @@ export function ContactForm() {
     }
   };
 
-  return (
-    <div className="rounded-[6px] border border-card-line bg-white p-7 sm:p-9">
-      <h2 className="mb-1.5 font-display text-[26px] font-bold">
-        Request a free consultation
-      </h2>
-      <p className="mb-7 text-[14.5px] text-[#6a6a5a]">
-        Tell us a little about your land and we&apos;ll be in touch.
-      </p>
+  const firstName = sentName.split(" ")[0];
 
+  return (
+    <div className="rounded-2xl border-[3px] border-ink bg-cream-3 px-6 py-8 shadow-[0_7px_0_rgba(28,21,16,.28)] sm:px-[34px]">
       {status === "sent" ? (
-        <div className="rounded-[5px] border border-[#b9cda4] bg-[#eef3e8] p-7 text-center">
-          <div className="mb-2 font-display text-[22px] font-bold text-forest">
-            Thanks — we got it.
+        <div className="px-2 py-10 text-center">
+          <div className="mb-3.5 font-slab text-[30px] leading-[1.1] text-moss sm:text-[34px]">
+            GOT IT.
           </div>
-          <p className="mb-4 text-[15px] text-bark-soft">
-            Perry will reach out soon. Need an answer today? Call{" "}
-            <strong>217-259-1500</strong>.
+          <p className="mx-auto mb-6 max-w-[420px] text-[16px] leading-[1.65] text-body sm:text-[17px]">
+            Thanks{firstName ? ` ${firstName}` : ""} — Perry will get back to
+            you, usually the same day. If it&apos;s urgent, calling is still
+            faster.
           </p>
           <button
-            onClick={() => setStatus("idle")}
-            className="cursor-pointer rounded-[3px] border-[1.5px] border-forest px-5 py-[11px] text-sm font-bold text-forest transition-colors hover:bg-forest hover:text-white"
+            onClick={reset}
+            className="cursor-pointer rounded-lg border-[2.5px] border-ink px-6 py-3 font-display text-sm font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-ink hover:text-cream"
           >
             Send another
           </button>
         </div>
       ) : (
         <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          void handleSubmit();
-        }}
-      >
-          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          onSubmit={(e) => {
+            e.preventDefault();
+            void handleSubmit();
+          }}
+        >
+          <h2 className="mb-1.5 font-slab text-[24px] sm:text-[26px]">
+            Send a note
+          </h2>
+          <p className="mb-6 text-[14.5px] text-muted">
+            The more you tell us about the property, the more useful the first
+            call is.
+          </p>
+
+          <div className="mb-[18px] grid gap-[18px] sm:grid-cols-2">
             <div>
               <label htmlFor="name" className={labelClass}>
-                Name
+                Your name
               </label>
               <input
                 id="name"
                 required
                 value={form.name}
                 onChange={update("name")}
-                placeholder="Your name"
+                placeholder="Jane Landowner"
                 className={inputClass}
               />
             </div>
@@ -126,83 +158,106 @@ export function ContactForm() {
             </div>
           </div>
 
-          <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="email" className={labelClass}>
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={update("email")}
-                placeholder="you@email.com"
-                className={inputClass}
-              />
-            </div>
-            <div>
-              <label htmlFor="land" className={labelClass}>
-                County / Acres
-              </label>
-              <input
-                id="land"
-                value={form.land}
-                onChange={update("land")}
-                placeholder="e.g. Effingham, 40 ac"
-                className={inputClass}
-              />
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="topic" className={labelClass}>
-              What can we help with?
+          <div className="mb-[18px]">
+            <label htmlFor="email" className={labelClass}>
+              Email
             </label>
-            <select
-              id="topic"
-              value={form.topic}
-              onChange={update("topic")}
+            <input
+              id="email"
+              type="email"
+              required
+              value={form.email}
+              onChange={update("email")}
+              placeholder="you@example.com"
               className={inputClass}
-            >
-              {topics.map((t) => (
-                <option key={t}>{t}</option>
-              ))}
-            </select>
+            />
           </div>
 
-          <div className="mb-[22px]">
-            <label htmlFor="message" className={labelClass}>
-              Message
+          <fieldset className="mb-[18px]">
+            <legend className="mb-2.5 font-display text-[11.5px] uppercase tracking-[0.16em] text-body">
+              What are you after?
+            </legend>
+            <div className="flex flex-wrap gap-2.5">
+              {chips.map((chip) => {
+                const on = picked.includes(chip);
+                return (
+                  <button
+                    key={chip}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => toggleChip(chip)}
+                    className={`cursor-pointer rounded-full border-2 border-ink px-4 py-2 font-display text-[13px] tracking-[0.06em] transition-colors ${
+                      on ? "bg-moss text-parch-2" : "bg-cream-2 text-ink"
+                    }`}
+                  >
+                    {chip}
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
+
+          <div className="mb-[18px] grid gap-[18px] sm:grid-cols-2">
+            <div>
+              <label htmlFor="county" className={labelClass}>
+                County
+              </label>
+              <input
+                id="county"
+                value={form.county}
+                onChange={update("county")}
+                placeholder="Effingham"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="acres" className={labelClass}>
+                Roughly how many acres?
+              </label>
+              <input
+                id="acres"
+                inputMode="numeric"
+                value={form.acres}
+                onChange={update("acres")}
+                placeholder="40"
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="notes" className={labelClass}>
+              Tell us about it
             </label>
             <textarea
-              id="message"
+              id="notes"
               required
-              rows={4}
-              value={form.message}
-              onChange={update("message")}
-              placeholder="Tell us about your land and what you're hoping to do."
-              className={`${inputClass} resize-y`}
+              value={form.notes}
+              onChange={update("notes")}
+              placeholder="Grandpa's timber ground, hasn't been touched in thirty years…"
+              className={`${inputClass} min-h-[110px] resize-y`}
             />
           </div>
 
           {status === "error" && (
-            <p className="mb-4 text-sm font-medium text-red-700">
-              Something went wrong. Please try again or call us at
+            <p className="mb-4 text-sm font-semibold text-rust-dark">
+              Something went wrong. Please try again, or just call
               217-259-1500.
             </p>
           )}
 
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="w-full cursor-pointer rounded-[4px] bg-forest py-[15px] text-[15px] font-bold text-white transition-[filter] hover:brightness-110 disabled:opacity-60"
-          >
-            {status === "sending" ? "Sending…" : "Send Request"}
-          </button>
-          <p className="mt-3.5 text-center text-[12.5px] text-[#8a8a7a]">
-            Prefer to talk? Call Perry at 217-259-1500.
-          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="cursor-pointer rounded-lg bg-rust px-8 py-4 font-display text-base font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_5px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi disabled:opacity-60"
+            >
+              {status === "sending" ? "Sending…" : "Send it over"}
+            </button>
+            <span className="text-[13.5px] text-sand">
+              Or just call. Honestly, calling is faster.
+            </span>
+          </div>
         </form>
       )}
     </div>

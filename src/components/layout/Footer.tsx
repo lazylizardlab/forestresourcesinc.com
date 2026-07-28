@@ -1,101 +1,97 @@
 import Link from "next/link";
-import Image from "next/image";
-
-const serviceLinks = [
-  { name: "Stewardship Plans", href: "/services/forest-stewardship-plans" },
-  { name: "Tree Planting", href: "/services/tree-planting" },
-  { name: "Wildlife Enhancement", href: "/services/wildlife-enhancement" },
-  { name: "Timber Sales", href: "/services/timber-appraisals-sales" },
-];
+import { servicesData } from "@/lib/services-data";
 
 const companyLinks = [
-  { name: "About Us", href: "/about" },
+  { name: "About Perry", href: "/about" },
   { name: "All Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
 
+const columnLabel =
+  "mb-4 font-display text-[11.5px] uppercase tracking-[0.22em] text-dust-6";
+
 export function Footer() {
+  // The first five services, matching the design's footer column.
+  const serviceLinks = servicesData.slice(0, 5);
+
   return (
-    <footer className="bg-ink text-[#cdd1c2]">
-      <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-10 px-5 pb-8 pt-14 sm:px-8 md:grid-cols-[1.5fr_1fr_1fr_1fr] lg:px-14">
-        <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Forest Resources Inc."
-              width={34}
-              height={48}
-              className="h-12 w-auto"
-            />
-            <div className="font-display text-lg font-bold text-white">
-              FOREST RESOURCES INC.
-            </div>
+    <footer className="bg-night px-5 pb-7 pt-11 text-dust-2 sm:px-8 sm:pt-[52px] lg:px-14">
+      <div className="mx-auto grid max-w-[1320px] gap-10 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
+        <div>
+          <div className="mb-4 font-slab text-[22px] leading-[1.15] text-parch-2">
+            FOREST
+            <br />
+            RESOURCES INC.
           </div>
-          <p className="mt-4 max-w-[280px] text-sm leading-relaxed text-[#9aa28c]">
-            Comprehensive forestry services for Central &amp; Southern Illinois.
-            Over 20 years of timber and land management.
+          <p className="mb-4 max-w-[280px] text-sm leading-[1.65] text-dust-5">
+            Timber and land management for Central &amp; Southern Illinois.
+            Twenty years of walking other people&apos;s woods.
           </p>
+          <span className="inline-block rounded-full border-[1.5px] border-[#46381f] px-3.5 py-1.5 font-display text-[11px] uppercase tracking-[0.22em] text-gold">
+            Est. 2006
+          </span>
         </div>
 
         <div>
-          <div className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[#7e886c]">
-            Services
-          </div>
-          <div className="flex flex-col gap-2 text-sm">
-            {serviceLinks.map((link) => (
+          <div className={columnLabel}>Services</div>
+          <div className="flex flex-col gap-2.5 text-[14.5px]">
+            {serviceLinks.map((service) => (
               <Link
-                key={link.name}
-                href={link.href}
-                className="transition-colors hover:text-wheat"
+                key={service.slug}
+                href={`/services/${service.slug}`}
+                className="transition-colors hover:text-gold"
               >
-                {link.name}
+                {service.title}
               </Link>
             ))}
           </div>
         </div>
 
         <div>
-          <div className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[#7e886c]">
-            Company
-          </div>
-          <div className="flex flex-col gap-2 text-sm">
+          <div className={columnLabel}>Company</div>
+          <div className="flex flex-col gap-2.5 text-[14.5px]">
             {companyLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="transition-colors hover:text-wheat"
+                className="transition-colors hover:text-gold"
               >
                 {link.name}
               </Link>
             ))}
+            <a
+              href="https://www.facebook.com/forestresources007"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-gold"
+            >
+              Facebook
+            </a>
           </div>
         </div>
 
         <div>
-          <div className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-[#7e886c]">
-            Contact
-          </div>
-          <div className="flex flex-col gap-1.5 text-sm leading-relaxed">
-            <span>Perry Bushue</span>
-            <span>Shumway, IL</span>
-            <a href="tel:2172591500" className="transition-colors hover:text-wheat">
-              217-259-1500
-            </a>
+          <div className={columnLabel}>Get in touch</div>
+          <a
+            href="tel:2172591500"
+            className="mb-2.5 block font-slab text-[22px] text-gold transition-colors hover:text-gold-hi"
+          >
+            217-259-1500
+          </a>
+          <div className="flex flex-col gap-2 text-[14.5px]">
             <a
               href="mailto:perrybushue@forestresourcesinc.com"
-              className="break-words transition-colors hover:text-wheat"
+              className="break-words transition-colors hover:text-gold"
             >
               perrybushue@forestresourcesinc.com
             </a>
+            <span className="text-dust-5">Shumway, IL · Effingham County</span>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1320px] flex-col gap-2 border-t border-ink-line px-5 pb-7 pt-[18px] text-xs text-[#6f7a5b] sm:flex-row sm:justify-between sm:px-8 lg:px-14">
-        <span>
-          © {new Date().getFullYear()} Forest Resources Inc. — All rights
-          reserved.
-        </span>
+      <div className="mx-auto mt-9 flex max-w-[1320px] flex-col gap-2 border-t border-[#2a2113] pt-[18px] text-[12.5px] text-[#5c5039] sm:flex-row sm:justify-between">
+        <span>© {new Date().getFullYear()} Forest Resources Inc.</span>
         <span>Serving Central &amp; Southern Illinois</span>
       </div>
     </footer>

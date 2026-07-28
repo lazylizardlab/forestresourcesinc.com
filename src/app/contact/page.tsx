@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import Image from "next/image";
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Reveal, RevealStagger } from "@/components/ui/Reveal";
@@ -12,78 +14,95 @@ export const metadata: Metadata = {
   },
 };
 
+const railLabel =
+  "mb-1.5 font-display text-[11px] uppercase tracking-[0.16em] text-dust-5";
+
 export default function ContactPage() {
   return (
     <>
       {/* HERO */}
-      <section className="bg-forest text-white">
-        <RevealStagger className="mx-auto max-w-[1320px] px-5 py-15 sm:px-8 lg:px-14">
-          <div className="mb-4 text-xs font-bold uppercase tracking-[0.13em] text-wheat">
-            Get in touch
+      <section className="relative isolate overflow-hidden bg-night px-5 py-14 sm:px-8 sm:py-[54px] lg:px-14">
+        <div aria-hidden className="texture-dots-gold absolute inset-0 opacity-10" />
+        <RevealStagger className="relative mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-10">
+          <div>
+            <div className="mb-5 inline-block rounded-full border-2 border-[rgba(224,163,78,.5)] px-4 py-1.5 font-display text-[11.5px] uppercase tracking-[0.24em] text-gold">
+              Get in touch
+            </div>
+            <h1 className="mb-4 font-slab text-[34px] uppercase leading-[0.98] text-cream sm:text-[46px] lg:text-[58px]">
+              Tell us about
+              <br />
+              your land.
+            </h1>
+            <p className="max-w-[560px] text-[17px] leading-[1.6] text-dust sm:text-[18px]">
+              Free consultation, no pressure. Call Perry directly, or leave a
+              note and he&apos;ll get back to you — usually the same day.
+            </p>
           </div>
-          <h1 className="mb-3.5 font-display text-[34px] font-semibold uppercase leading-[1.05] sm:text-[48px]">
-            Let&apos;s talk about your land.
-          </h1>
-          <p className="max-w-[560px] text-[18px] leading-relaxed text-sage-soft">
-            Free consultation, no pressure. Call Perry directly, or send a note
-            and we&apos;ll get back to you.
-          </p>
+          <div className="flex-none text-center">
+            <Image
+              src="/logo.png"
+              alt="Forest Resources Inc."
+              width={170}
+              height={170}
+              priority
+              className="mx-auto mb-3.5 h-auto w-[130px] drop-shadow-[0_10px_24px_rgba(0,0,0,.6)] sm:w-[170px]"
+            />
+            <a
+              href="tel:2172591500"
+              className="block font-slab text-[26px] leading-none text-gold transition-colors hover:text-gold-hi sm:text-[32px]"
+            >
+              217-259-1500
+            </a>
+          </div>
         </RevealStagger>
       </section>
 
       {/* BODY */}
-      <section className="mx-auto grid max-w-[1320px] items-start gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.1fr_.9fr] md:gap-14 lg:px-14">
-        {/* Form */}
+      <section className="mx-auto grid max-w-[1320px] items-start gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-11 lg:px-14 lg:pb-[72px]">
         <Reveal>
-          <ContactForm />
+          {/* useSearchParams needs a Suspense boundary to prerender. */}
+          <Suspense fallback={null}>
+            <ContactForm />
+          </Suspense>
         </Reveal>
 
-        {/* Details */}
-        <Reveal index={1} className="flex flex-col gap-5">
-          <div className="rounded-[6px] bg-paper-soft p-7 sm:p-[30px]">
-            <div className="mb-[18px] text-xs font-bold uppercase tracking-[0.1em] text-amber">
-              Contact
+        <Reveal index={1} className="flex flex-col gap-[18px]">
+          <div className="rounded-2xl border-[3px] border-night bg-night-2 px-6 py-7 text-dust-2 shadow-[0_7px_0_rgba(28,21,16,.28)]">
+            <div className="mb-5 font-display text-[11.5px] uppercase tracking-[0.22em] text-gold">
+              Direct line
             </div>
             <div className="flex flex-col gap-[18px]">
               <div>
-                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
-                  Phone
-                </div>
+                <div className={railLabel}>Phone</div>
                 <a
                   href="tel:2172591500"
-                  className="font-display text-[24px] font-bold text-forest"
+                  className="font-slab text-[24px] leading-none text-cream transition-colors hover:text-gold sm:text-[27px]"
                 >
                   217-259-1500
                 </a>
               </div>
               <div>
-                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
-                  Email
-                </div>
+                <div className={railLabel}>Email</div>
                 <a
                   href="mailto:perrybushue@forestresourcesinc.com"
-                  className="break-words text-[16px] font-semibold text-forest"
+                  className="break-words text-[15px] font-semibold transition-colors hover:text-gold"
                 >
                   perrybushue@forestresourcesinc.com
                 </a>
               </div>
               <div>
-                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
-                  Location
-                </div>
-                <div className="text-[16px] font-semibold text-forest">
+                <div className={railLabel}>Where</div>
+                <div className="text-[15px] font-semibold">
                   Shumway, IL · Effingham County
                 </div>
               </div>
               <div>
-                <div className="mb-1 text-xs font-semibold uppercase tracking-[0.05em] text-[#7d7a6c]">
-                  Follow
-                </div>
+                <div className={railLabel}>Follow</div>
                 <a
                   href="https://www.facebook.com/forestresources007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[16px] font-semibold text-forest"
+                  className="text-[15px] font-semibold text-gold transition-colors hover:text-gold-hi"
                 >
                   Facebook
                 </a>
@@ -91,16 +110,22 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="rounded-[6px] bg-forest p-7 text-[#eef0e6] sm:p-[30px]">
-            <div className="mb-3.5 text-xs font-bold uppercase tracking-[0.1em] text-wheat">
+          <div className="rounded-2xl border-[3px] border-ink bg-cream-2 px-6 py-[26px] shadow-[0_7px_0_rgba(28,21,16,.24)]">
+            <div className="mb-3 font-display text-[11.5px] uppercase tracking-[0.22em] text-rust-dark">
               Service area
             </div>
-            <p className="mb-3.5 text-[15.5px] leading-relaxed text-sage-soft">
+            <p className="mb-4 text-[15px] leading-[1.6] text-body">
               We work throughout Central &amp; Southern Illinois. Not sure if
-              you&apos;re in our area? Just call — we&apos;ll let you know.
+              you&apos;re in it? Just call — we&apos;ll tell you straight.
             </p>
-            <div className="h-[170px] overflow-hidden rounded-[4px]">
+            <div className="h-[150px] overflow-hidden rounded-[10px] border-[2.5px] border-ink">
               <MapEmbed zoom={7} />
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-night px-6 py-[22px]">
+            <div className="text-[14.5px] leading-[1.55] text-dust-4">
+              Somebody actually reads these. Usually while standing in a field.
             </div>
           </div>
         </Reveal>

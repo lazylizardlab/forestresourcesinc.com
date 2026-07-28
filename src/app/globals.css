@@ -1,50 +1,55 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ── Workhorse palette ─────────────────────────────────────────────
-     Warm "almanac" paper, working forest green, amber/wheat accents. */
-  --color-paper: #f5f3ec; /* page background */
-  --color-paper-soft: #ece8dc; /* alternating section bg / tags */
-  --color-bark: #24281f; /* primary text */
-  --color-bark-soft: #4c4c40; /* secondary text */
-  --color-line: #e0dccf; /* hairline borders */
-  --color-card-line: #e2ddcf; /* card borders */
+  /* ── Paper ─────────────────────────────────────────────────────────
+     Warm almanac stock. `cream` is the page, `cream-2` the alternating
+     band, `cream-3` the raised card. */
+  --color-cream: #f3e9d2;
+  --color-cream-2: #e3d3ae;
+  --color-cream-3: #fffaee;
 
-  --color-forest: #34452c; /* primary green */
-  --color-forest-line: #46583a; /* divider on green */
-  --color-forest-deep: #2b3a24; /* deeper green panels */
-  --color-ink: #23291d; /* footer / darkest */
-  --color-ink-line: #36402c;
+  /* ── Ink & night ────────────────────────────────────────────────────
+     `ink` draws every hard border and sets body copy on paper. `night`
+     and `night-2` are the dark panels the paper is cut against. */
+  --color-ink: #1c1510;
+  --color-night: #0f0b06;
+  --color-night-2: #161009;
 
-  --color-amber: #a9772f; /* accent links / eyebrows */
-  --color-gold: #c79a4e; /* CTA buttons */
-  --color-wheat: #cdb37a; /* logo mark / accents on dark */
-  --color-sage: #b8c2a6; /* muted text on green */
-  --color-sage-soft: #c2cbb2;
+  /* ── Rust — the primary accent. Buttons, rules, the closing CTA. ──── */
+  --color-rust: #b8442b;
+  --color-rust-hi: #cc4d31; /* hover */
+  --color-rust-deep: #7d2c1a; /* hard drop shadow under buttons */
+  --color-rust-dark: #8f3220; /* eyebrows + link hover on paper */
 
-  /* ── Legacy forest/wood scale, retuned toward the Workhorse greens so
-     the service detail pages harmonize without per-element edits. ──── */
-  --color-forest-50: #eef3e8;
-  --color-forest-100: #e3ead9;
-  --color-forest-200: #c9d6b8;
-  --color-forest-300: #cdb37a;
-  --color-forest-400: #c79a4e;
-  --color-forest-500: #5a6e44;
-  --color-forest-600: #46583a;
-  --color-forest-700: #34452c;
-  --color-forest-800: #2b3a24;
-  --color-forest-900: #23291d;
-  --color-forest-950: #1a2016;
+  /* ── Gold — the accent on dark. Numbers, eyebrows, secondary CTA. ─── */
+  --color-gold: #e0a34e;
+  --color-gold-hi: #efb35d;
+  --color-gold-deep: #8d5f18;
 
-  --color-wood-100: #ece8dc;
-  --color-wood-200: #e3dcc8;
-  --color-wood-800: #5c4d3c;
-  --color-wood-900: #3d3226;
+  /* ── Working green — photo washes and step markers. ────────────────── */
+  --color-moss: #33452a;
+
+  /* ── Type colors on paper ──────────────────────────────────────────── */
+  --color-body: #5b4c3b;
+  --color-body-deep: #4a3d2f;
+  --color-body-soft: #6a5a47;
+  --color-muted: #7a6547;
+  --color-sand: #8f7a58;
+
+  /* ── Type colors on night ──────────────────────────────────────────── */
+  --color-parch: #f3e9d2;
+  --color-parch-2: #f0dcae;
+  --color-dust: #a8977a;
+  --color-dust-2: #c4b795;
+  --color-dust-3: #9a8b70;
+  --color-dust-4: #8d7f66;
+  --color-dust-5: #7d6f57;
+  --color-dust-6: #6b5d45;
 
   /* ── Fonts ──────────────────────────────────────────────────────── */
   --font-sans: var(--font-public-sans);
+  --font-slab: var(--font-alfa);
   --font-display: var(--font-oswald);
-  --font-serif: var(--font-oswald);
 
   /* ── Entrance animations ────────────────────────────────────────── */
   --animate-fade-in: fade-in 0.5s ease-out;
@@ -57,8 +62,10 @@
   }
 
   body {
-    background: var(--color-paper);
-    color: var(--color-bark);
+    /* Fractal-noise overlay gives the cream a printed-paper tooth. */
+    background-color: var(--color-cream);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='pn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23pn)' opacity='0.22'/%3E%3C/svg%3E");
+    color: var(--color-ink);
     font-family: var(--font-sans), Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
@@ -73,72 +80,96 @@
   }
 
   ::selection {
-    background: #c79a4e;
-    color: #23271d;
+    background: var(--color-gold);
+    color: var(--color-ink);
   }
 
   /* ── Wood-grain "log" scrollbar ──────────────────────────────────────
-     WebKit/Blink (Chrome, Edge, Safari): the thumb is a rounded log —
-     a barrel gradient across the width fakes a cylinder, and vertical
-     grain streaks run down its length. Firefox falls back to solid bark
-     (see scrollbar-color on html below). */
+     WebKit/Blink (Chrome, Edge, Safari): the thumb is a rounded log — a
+     barrel gradient across the width fakes a cylinder, and vertical grain
+     streaks run down its length. Retuned to the rust/gold accent family.
+     Firefox falls back to solid bark (see scrollbar-color on html below). */
   ::-webkit-scrollbar {
     width: 14px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-paper-soft);
-    border-left: 1px solid var(--color-line);
+    background: var(--color-cream-2);
+    border-left: 1px solid rgba(28, 21, 16, 0.2);
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 9999px;
-    border: 1px solid rgba(74, 53, 23, 0.5);
-    /* Fresh-cut golden timber: irregular vertical bands of amber/gold/wheat
-       = grain running down the log, lightest band near center for a barrel
-       highlight. Tied to the amber/gold/wheat accent family. */
+    border: 1px solid rgba(28, 21, 16, 0.55);
+    /* Fresh-cut golden timber: irregular vertical bands = grain running
+       down the log, lightest band near center for a barrel highlight. */
     background-image: linear-gradient(
       90deg,
-      #5e4422 0%,
-      #8a6230 9%,
-      #6b4f28 16%,
-      #a9772f 24%,
-      #7c5a2c 33%,
-      #c79a4e 44%,
-      #a07636 52%,
-      #ddc88f 60%,
-      #a9772f 70%,
-      #c79a4e 79%,
-      #6b4f28 88%,
-      #553e1f 100%
+      #4a2c1a 0%,
+      #7d4a2a 9%,
+      #5e3a22 16%,
+      #b8442b 24%,
+      #8a5230 33%,
+      #e0a34e 44%,
+      #b07b38 52%,
+      #f0dcae 60%,
+      #e0a34e 70%,
+      #c98a3f 79%,
+      #6b4224 88%,
+      #45291a 100%
     );
   }
   ::-webkit-scrollbar-thumb:hover {
     background-image: linear-gradient(
       90deg,
-      #6d5029 0%,
-      #9c7038 9%,
-      #7c5c30 16%,
-      #bd863a 24%,
-      #8c6733 33%,
-      #d8aa5c 44%,
-      #b3853f 52%,
-      #e8d6a1 60%,
-      #bd863a 70%,
-      #d8aa5c 79%,
-      #7c5c30 88%,
-      #634825 100%
+      #5a3722 0%,
+      #925832 9%,
+      #6f472a 16%,
+      #cc4d31 24%,
+      #9c6038 33%,
+      #efb35d 44%,
+      #c48a41 52%,
+      #fff3d2 60%,
+      #efb35d 70%,
+      #d99a4a 79%,
+      #7b4e2c 88%,
+      #543322 100%
     );
   }
 
   /* Firefox: no texture support, fall back to solid timber. */
   html {
-    scrollbar-color: var(--color-amber) var(--color-paper-soft);
+    scrollbar-color: var(--color-rust) var(--color-cream-2);
   }
+}
+
+/* ── Print textures ────────────────────────────────────────────────────
+   The design leans on three repeating fields. They're utilities so a
+   section can pick one up alongside its own background color. */
+
+@utility texture-dots-ink {
+  /* Halftone dot field for the cream bands. */
+  background-image: radial-gradient(#1c1510 1.1px, transparent 1.2px);
+  background-size: 13px 13px;
+}
+
+@utility texture-dots-gold {
+  /* Same field inverted, for dark page heroes. Pair with low opacity. */
+  background-image: radial-gradient(#e0a34e 1.1px, transparent 1.2px);
+  background-size: 15px 15px;
+}
+
+@utility texture-hatch {
+  /* Diagonal hatch — the rust CTA band. */
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(28, 21, 16, 0.06) 0 10px,
+    transparent 10px 20px
+  );
 }
 
 /* ── Scroll-reveal system ──────────────────────────────────────────────
    Elements tagged [data-reveal] rise + fade into view. The hidden state
    only exists for users who haven't asked to reduce motion, so reduced-
-   motion users (and the no-JS fallback below) always see content. */
+   motion users (and the no-JS fallback in layout.tsx) always see content. */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {
     opacity: 0;

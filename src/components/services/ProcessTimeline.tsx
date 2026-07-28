@@ -1,62 +1,37 @@
-"use client";
-
-import { SectionReveal } from "@/components/ui/SectionReveal";
-
-interface Step {
-  title: string;
-  description: string;
-  subItems?: string[];
-}
+import { RevealStagger } from "@/components/ui/Reveal";
+import type { ServiceStep } from "@/types";
 
 interface ProcessTimelineProps {
-  steps: Step[];
+  steps: ServiceStep[];
 }
 
+/**
+ * "How it goes" — numbered markers straddling a wheat rail. The last step is
+ * rust rather than moss so the sequence reads as arriving somewhere.
+ */
 export function ProcessTimeline({ steps }: ProcessTimelineProps) {
   return (
-    <div className="relative">
-      {/* Vertical line */}
-      <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-forest-300 via-forest-500 to-forest-300 hidden md:block" />
-
-      <div className="space-y-8">
-        {steps.map((step, index) => (
-          <SectionReveal key={index} delay={index * 0.1}>
-            <div className="flex gap-6">
-              {/* Step number - tree ring style */}
-              <div className="flex-shrink-0 relative">
-                <div className="w-10 h-10 rounded-full bg-forest-600 text-white flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-forest-100">
-                  {index + 1}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 pb-2">
-                <h3 className="text-xl font-bold text-stone-900 mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-stone-600 leading-relaxed">
-                  {step.description}
-                </p>
-                {step.subItems && (
-                  <ul className="mt-3 space-y-2 ml-1">
-                    {step.subItems.map((item, i) => (
-                      <li
-                        key={i}
-                        className="text-stone-600 leading-relaxed flex gap-3 text-sm"
-                      >
-                        <span className="text-forest-500 mt-1.5 flex-shrink-0">
-                          &bull;
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+    <RevealStagger>
+      {steps.map((step, i) => (
+        <div
+          key={step.title}
+          className="ml-[26px] grid grid-cols-[54px_1fr] gap-4 border-l-[3px] border-[#d8c69b] pb-6 sm:gap-5"
+        >
+          <div
+            className={`-ml-[27px] flex size-[54px] items-center justify-center rounded-full border-[3px] border-ink font-slab text-[22px] text-gold ${
+              i === steps.length - 1 ? "bg-rust" : "bg-moss"
+            }`}
+          >
+            {i + 1}
+          </div>
+          <div className="pt-1">
+            <div className="mb-[7px] font-slab text-[18px] leading-snug sm:text-[19px]">
+              {step.title}
             </div>
-          </SectionReveal>
-        ))}
-      </div>
-    </div>
+            <p className="text-[15.5px] leading-[1.65] text-body">{step.body}</p>
+          </div>
+        </div>
+      ))}
+    </RevealStagger>
   );
 }
