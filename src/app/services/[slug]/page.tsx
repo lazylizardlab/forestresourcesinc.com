@@ -191,9 +191,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               Free walk-through of your property. You&apos;ll know more when we
               leave than when we got there.
             </p>
-            {/* Carries the service through so the contact form arrives pre-tagged. */}
             <Link
-              href={`/contact?service=${encodeURIComponent(service.title)}`}
+              href="/contact"
               className="block rounded-md bg-rust py-3.5 text-center font-display text-sm font-semibold uppercase tracking-[0.08em] text-cream shadow-[0_4px_0_var(--color-rust-deep)] transition-colors hover:bg-rust-hi"
             >
               Ask about this
